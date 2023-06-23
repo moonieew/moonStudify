@@ -1,13 +1,31 @@
 import Class from "@/components/Class";
-import { Box, Flex, HStack, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, HStack, Img, useColorModeValue } from "@chakra-ui/react";
+import {
+    Collapse,
+    Container,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
+} from 'reactstrap';
 import Add from "./Add";
 import Logo from "./Logo";
 import Profile from "./Profile";
 import Slidebar from "./Slidebar";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 function Header() {
     const router = useRouter();
+    const [isOpen, setIsOpen] = useState(false);
+    const { user, isLoading } = useUser();
+    const toggle = () => setIsOpen(!isOpen);
 
     const goToNewsfeed = () => {
         router.push("/class/newsfeed")
@@ -19,6 +37,18 @@ function Header() {
 
     const goToExam = () => {
         router.push("/class/exam")
+    }
+
+    const goToProfile = () => {
+        router.push("/profile")
+    }
+
+    const Login = () => {
+        router.push("/api/auth/login")
+    }
+
+    const Logout = () => {
+        router.push("/api/auth/logout")
     }
 
     return (
@@ -41,7 +71,16 @@ function Header() {
                     </HStack>
                     <HStack>
                         <Add />
-                        <Profile />
+                        {!user && (
+                            <Box px={"24px"} onClick={Login} as={"button"}>Login</Box>
+                        )}
+                        
+                        {user && (
+                            <>
+                                <Profile />
+                                <Box px={"24px"} onClick={Logout} as={"button"}>Logout</Box>
+                            </>
+                        )}
                     </HStack>
                 </Flex>
             </Box>
