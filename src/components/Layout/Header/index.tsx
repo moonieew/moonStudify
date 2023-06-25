@@ -65,11 +65,6 @@ function Header() {
         router.push("/api/auth/logout")
     }
 
-    const callapi = async () => {
-        const res = await fetch('@/pages/api/shows');
-        const data = await res.json();
-        console.log("data", data)
-    }
     return (
         <>
             <Box
@@ -101,7 +96,6 @@ function Header() {
                             </>
                         )}
                     </HStack>
-                    <Button onClick={callapi}>Hello</Button>
                 </Flex>
             </Box>
         </>
