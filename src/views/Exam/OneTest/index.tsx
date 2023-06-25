@@ -1,5 +1,4 @@
 
-import { EditTestIcon } from "@/components/Icon";
 import { EditIcon } from "@chakra-ui/icons";
 import { Box, IconButton, Img, Text } from "@chakra-ui/react";
 import MoreOptionTest from "./MoreOptionTest";
