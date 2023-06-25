@@ -1,5 +1,5 @@
 import Class from "@/components/Class";
-import { Box, Flex, HStack, Img, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Img, useColorModeValue } from "@chakra-ui/react";
 import {
     Collapse,
     Container,
@@ -20,6 +20,8 @@ import Slidebar from "./Slidebar";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import axios from "axios";
+import { getCookie, setCookie } from 'typescript-cookie'
 
 function Header() {
     const router = useRouter();
@@ -44,13 +46,30 @@ function Header() {
     }
 
     const Login = () => {
-        router.push("/api/auth/login")
+        router.push("/api/auth/login").then(() => {
+
+        })
+
+        // call api acesstoken
+        axios.get('http://localhost:5005/auth/login/accessToken', {
+            headers: {
+                'accept': 'application/json'
+            }
+        }).then((res) => {
+            const access_token = res.data.data.access_token
+            setCookie('token', access_token)
+        })
     }
 
     const Logout = () => {
         router.push("/api/auth/logout")
     }
 
+    const callapi = async () => {
+        const res = await fetch('@/pages/api/shows');
+        const data = await res.json();
+        console.log("data", data)
+    }
     return (
         <>
             <Box
@@ -74,7 +93,7 @@ function Header() {
                         {!user && (
                             <Box px={"24px"} onClick={Login} as={"button"}>Login</Box>
                         )}
-                        
+
                         {user && (
                             <>
                                 <Profile />
@@ -82,6 +101,7 @@ function Header() {
                             </>
                         )}
                     </HStack>
+                    <Button onClick={callapi}>Hello</Button>
                 </Flex>
             </Box>
         </>
