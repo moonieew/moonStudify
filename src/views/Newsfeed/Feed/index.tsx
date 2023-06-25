@@ -6,7 +6,6 @@ import CommentInput from "./CommentInput";
 import { MdOutlinePeopleAlt } from "react-icons/md";
 import MoreOptionCommentButton from "./MoreOptionCommentButton/MoreOptionCommentButton";
 import { useState } from "react";
-import { Editor } from "../ReactQuill";
 
 function Feed() {
     const [content, setContent] = useState('');
@@ -16,7 +15,6 @@ function Feed() {
     };
     return (
         <>
-            <Editor value={content} onChange={handleEditorChange} />
             <Box border={"0.0625rem solid #dadce0"} borderRadius={"0.5rem"} my={"1.5rem"}>
                 <Box p={"0.5rem 0"}>
                     <Box h={"3.5rem"} pr={"0.5rem"} whiteSpace={"nowrap"}
