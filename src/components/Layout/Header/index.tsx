@@ -1,5 +1,5 @@
 import Class from "@/components/Class";
-import { Avatar, Box, Button, Checkbox, Flex, FormControl, FormLabel, HStack, Img, Input, InputGroup, InputRightElement, Link, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useColorModeValue, useDisclosure, useToast } from "@chakra-ui/react";
+import { Avatar, Box, Button, Center, Checkbox, Flex, FormControl, FormLabel, HStack, Img, Input, InputGroup, InputRightElement, Link, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useColorModeValue, useDisclosure, useToast, VStack } from "@chakra-ui/react";
 import {
     Collapse,
     Container,
@@ -13,6 +13,9 @@ import {
     DropdownMenu,
     DropdownItem
 } from 'reactstrap';
+import {
+    FiChevronDown,
+} from 'react-icons/fi';
 import Add from "./Add";
 import Logo from "./Logo";
 import Profile from "./Profile";
@@ -21,11 +24,11 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import axios from "axios";
-import { getCookie, setCookie } from 'typescript-cookie'
+import { getCookie, setCookie, removeCookie } from 'typescript-cookie'
 import { error } from "console";
 import { config } from "process";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { getInfo, register } from "@/common/service/user";
+import { getInfo, logOut, register } from "@/common/service/user";
 
 function Header() {
     const router = useRouter();
@@ -45,6 +48,7 @@ function Header() {
     const [passCreate, setPassCreate] = useState<string>("");
     const [info, setInfo] = useState<any>();
     const toast = useToast();
+    const [isOpenLogout, setIsOpenLogout] = useState(false)
 
     const infoUser = async () => {
         const res: any = await getInfo()
@@ -88,7 +92,7 @@ function Header() {
             onClose()
             router.push("/home")
             toast({
-                title: "Bạn đã tạo đăng nhập thành công thành công!",
+                title: "Bạn đã tạo đăng nhập thành công!",
                 status: "success",
                 duration: 5000,
                 isClosable: true
@@ -137,7 +141,27 @@ function Header() {
     const openModal = () => {
         setIsOpenSignUp(true);
     };
+    const closeModalLogout = () => {
+        setIsOpenLogout(false)
+    }
+    const openModalLogout = () => {
+        setIsOpenLogout(true)
+    }
 
+    const logout = async () => {
+        setIsLoading(true)
+        const data = await logOut()
+        setIsOpenLogout(false)
+        removeCookie('token')
+        toast({
+            title: "Bạn đã đăng xuất thành công!",
+            status: "success",
+            duration: 5000,
+            isClosable: true
+        });
+        setIsLoading(false)
+        router.push("/")
+    }
     const Logout = () => {
         router.push("/api/auth/logout")
     }
@@ -164,11 +188,36 @@ function Header() {
                         <Add />
                         {info ? (
                             <Box display={"flex"} alignItems="center" gap={"8px"}>
-                                <Avatar
-                                    size={'sm'}
-                                    src={`${info.avatar}`}
-                                />
-                                <Text fontSize="sm">{info.username}</Text>
+                                <Menu>
+                                    <MenuButton
+                                        py={2}
+                                        transition="all 0.3s"
+                                        _focus={{ boxShadow: 'none' }}>
+                                        <HStack>
+                                            <Avatar
+                                                size={'sm'}
+                                                src={`${info.avatar}`}
+                                            />
+                                            <VStack
+                                                display={{ base: 'none', md: 'flex' }}
+                                                alignItems="flex-start"
+                                                spacing="1px"
+                                                ml="2">
+                                                <Text fontSize="sm">{info.username}</Text>
+                                            </VStack>
+                                            <Box display={{ base: 'none', md: 'flex' }}>
+                                                <FiChevronDown />
+                                            </Box>
+                                        </HStack>
+                                    </MenuButton>
+                                    <MenuList
+                                        bg={useColorModeValue('white', 'gray.900')}
+                                        borderColor={useColorModeValue('gray.200', 'gray.700')}>
+                                        <MenuItem>Trang cá nhân</MenuItem>
+                                        <MenuDivider />
+                                        <MenuItem onClick={openModalLogout}>Đăng xuất</MenuItem>
+                                    </MenuList>
+                                </Menu>
                             </Box>
                         ) : (
                             <Box display={"flex"} >
@@ -306,6 +355,31 @@ function Header() {
                             </Stack>
                         </Box>
                     </ModalBody>
+                </ModalContent>
+            </Modal>
+            <Modal
+                isOpen={isOpenLogout} onClose={closeModalLogout}
+                size="sm"
+            >
+                <ModalOverlay />
+                <ModalContent>
+                    <Box p={"24px"}>
+                        <Center mb="12px">
+                            <Text>
+                                Bạn có muốn đăng xuất không?
+                            </Text>
+                        </Center>
+                        <Flex w="full">
+                            <Button flex="1" mr="10px" outline="1px solid #919191" bg={"#ED2B2A"} isLoading={isLoading} onClick={logout}>
+                                <Text color={"black"}>
+                                    Có
+                                </Text>
+                            </Button>
+                            <Button flex="1" variant="outline" onClick={closeModalLogout}>
+                                Không
+                            </Button>
+                        </Flex>
+                    </Box>
                 </ModalContent>
             </Modal>
         </>

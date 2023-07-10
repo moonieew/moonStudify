@@ -25,3 +25,14 @@ export const getInfo = () : Promise<any> => {
         throw error;
       });
 }
+
+export const logOut = () : Promise<any> => {
+    return axiosClient
+    .post('/auth/logout')
+    .then((response: AxiosResponse) => {
+        return response;
+      })
+      .catch((error: AxiosError) => {
+        throw error;
+      });
+}
