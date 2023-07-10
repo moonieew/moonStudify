@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react";
 function Footer() {
     return (
         <Box>
-            ©2023
+            {/* ©2023 */}
         </Box>
     );
 }

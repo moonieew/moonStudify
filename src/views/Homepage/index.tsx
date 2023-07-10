@@ -4,8 +4,8 @@ import { Box } from "@chakra-ui/react";
 
 function Homepage() {
     return (
-        // <LandingPage />
-        <Class />
+        <LandingPage />
+        // <Class />
     );
 }
 

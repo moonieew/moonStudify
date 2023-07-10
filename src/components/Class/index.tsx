@@ -40,22 +40,23 @@ function Class() {
             <Grid templateColumns="repeat(4, 1fr)">
                 {
                     data && data.map((item: any) => (
-                        <GridItem colSpan={1} key={item._id} onClick={() => router.push(`/class/${item._id}`)}>
+                        <GridItem colSpan={1} key={item.class._id} onClick={() => router.push(`/class/${item.class._id}`)}>
                             <Box cursor="pointer" w={"302px"} h={"296px"} border="0.0625rem solid #dadce0" borderRadius={"0.5rem"} m="1rem" _hover={{ boxShadow: "lg" }}>
                                 <Box w={"100%"} h="100px" backgroundImage={getRandomImage()} display="flex" flexDirection={"column"} justifyContent="space-between" p={"1rem 1rem 0.75rem"}>
                                     <Box display={"flex"} justifyContent="space-between" alignItems={"center"} >
                                         <Text fontSize={"22px"} color="white" whiteSpace={"nowrap"} textOverflow="ellipsis" overflow={"hidden"}>
-                                            {item.name}
+                                            {item.class.name}
                                         </Text>
                                         <MenuButton />
                                     </Box>
+                                    <Text fontSize={"12px"} color="#fff">{item.class.description}</Text>
                                     <Box>
-                                        <Text fontSize={"13px"} color="white">{item.teacher.fullname}</Text>
+                                        <Text fontSize={"13px"} color="white">{item.class.teacher.fullname}</Text>
                                     </Box>
                                 </Box>
                                 <Box h={"137px"} display="flex" justifyContent={"end"}>
                                     <Box h="75px" w="75px" position="absolute" m={"-42px 16px 0"}>
-                                        <Image src={`${item.teacher.avatar}`} borderRadius={"50%"} />
+                                        <Image src={`${item.class.teacher.avatar}`} borderRadius={"50%"} />
                                     </Box>
                                 </Box>
                                 <FooterClass />

@@ -1,5 +1,5 @@
 import Class from "@/components/Class";
-import { Avatar, Box, Button, Checkbox, Flex, FormControl, FormLabel, HStack, Img, Input, InputGroup, InputRightElement, Link, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useColorModeValue, useDisclosure } from "@chakra-ui/react";
+import { Avatar, Box, Button, Checkbox, Flex, FormControl, FormLabel, HStack, Img, Input, InputGroup, InputRightElement, Link, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useColorModeValue, useDisclosure, useToast } from "@chakra-ui/react";
 import {
     Collapse,
     Container,
@@ -44,6 +44,7 @@ function Header() {
     const [emailCreate, setEmailCreate] = useState<string>("");
     const [passCreate, setPassCreate] = useState<string>("");
     const [info, setInfo] = useState<string>("");
+    const toast = useToast();
 
     const infoUser = async () => {
         const res: any = await getInfo()
@@ -85,11 +86,24 @@ function Header() {
             setCookie('token', response.data.accessToken)
             setMessage(false)
             onClose()
+            router.push("/home")
+            toast({
+                title: "Bạn đã tạo đăng nhập thành công thành công!",
+                status: "success",
+                duration: 5000,
+                isClosable: true
+            });
         })
             .catch((error) => {
                 // Xử lý lỗi
                 setMessage(true)
                 console.error(error);
+                toast({
+                    title: "Đã có lỗi xảy ra!",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true
+                });
             });
         setIsLoading(false);
         // router.push("/api/auth/login")
