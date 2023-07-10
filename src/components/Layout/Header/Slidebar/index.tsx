@@ -9,8 +9,8 @@ import { getClassCreate, getClassJoined } from "@/common/service/classService";
 
 function Slidebar() {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [dataTeacher, setDataTeacher] = useState(null);
-    const [dataStudent, setDataStudent] = useState(null);
+    const [dataTeacher, setDataTeacher] = useState([]);
+    const [dataStudent, setDataStudent] = useState([]);
     const dataClassUser = async () => {
         const res1 = await getClassCreate()
         setDataTeacher(res1)
@@ -47,7 +47,7 @@ function Slidebar() {
                             </Box>
                             {dataTeacher ? (
                                 dataTeacher.map((item: any) => (
-                                    <Box cursor={"pointer"} display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
+                                    <Box key={item._id} cursor={"pointer"} display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
                                         <Box mr={"1rem"}>
                                             <Avatar name='Ten lop hoc' size='sm' src='https://bit.ly/broken-link' />
                                         </Box>
