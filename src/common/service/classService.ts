@@ -11,3 +11,37 @@ export const getClass = (): Promise<any> => {
         throw error;
       });
 }
+
+export const getClassJoined = (): Promise<any> => {
+  return axiosClient
+  .get('/class/by-user-id')
+  .then((response: AxiosResponse) => {
+      return response;
+    })
+    .catch((error: AxiosError) => {
+      throw error;
+    });
+}
+
+export const getClassCreate = (): Promise<any> => {
+  return axiosClient
+  .get('/class/teacher')
+  .then((response: AxiosResponse) => {
+      return response;
+    })
+    .catch((error: AxiosError) => {
+      throw error;
+    });
+}
+
+interface createClassField {
+  classCode: string;
+  description: string;
+  name: string;
+}
+
+export const createClas = (params: createClassField): Promise<any> => {
+  return axiosClient.post('/class/', {
+    ...params
+  })
+}

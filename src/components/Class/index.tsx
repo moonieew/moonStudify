@@ -1,5 +1,6 @@
 import { getClass } from "@/common/service/classService";
 import { Box, Grid, GridItem, Image, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import FooterClass from "./FooterClass";
 import MenuButton from "./MenuButton";
@@ -18,6 +19,8 @@ const imageArray = [
 
 function Class() {
     const [data, setData] = useState(null);
+    const router = useRouter();
+
     const dataClass = async () => {
         const res: any = await getClass()
         setData(res)
@@ -37,7 +40,7 @@ function Class() {
             <Grid templateColumns="repeat(4, 1fr)">
                 {
                     data && data.map((item: any) => (
-                        <GridItem colSpan={1} key={item._id}>
+                        <GridItem colSpan={1} key={item._id} onClick={() => router.push(`/class/${item._id}`)}>
                             <Box cursor="pointer" w={"302px"} h={"296px"} border="0.0625rem solid #dadce0" borderRadius={"0.5rem"} m="1rem" _hover={{ boxShadow: "lg" }}>
                                 <Box w={"100%"} h="100px" backgroundImage={getRandomImage()} display="flex" flexDirection={"column"} justifyContent="space-between" p={"1rem 1rem 0.75rem"}>
                                     <Box display={"flex"} justifyContent="space-between" alignItems={"center"} >

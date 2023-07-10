@@ -4,9 +4,22 @@ import Logo from "../Logo";
 import { GoHome } from "react-icons/go";
 import { SiTestcafe } from "react-icons/si";
 import { FaTasks } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { getClassCreate, getClassJoined } from "@/common/service/classService";
 
 function Slidebar() {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [dataTeacher, setDataTeacher] = useState(null);
+    const [dataStudent, setDataStudent] = useState(null);
+    const dataClassUser = async () => {
+        const res1 = await getClassCreate()
+        setDataTeacher(res1)
+        const res2 = await getClassJoined()
+        setDataStudent(res2.joinedClass)
+    }
+    useEffect(() => {
+        dataClassUser();
+    }, [])
     return (
         <>
             <Box onClick={onOpen}>
@@ -32,12 +45,21 @@ function Slidebar() {
                                 </Box>
                                 <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>Cần đánh giá</Text>
                             </Box>
-                            <Box display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
-                                <Box mr={"1rem"}>
-                                    <Avatar name='Ten lop hoc' size='sm' src='https://bit.ly/broken-link' />
+                            {dataTeacher ? (
+                                dataTeacher.map((item: any) => (
+                                    <Box cursor={"pointer"} display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
+                                        <Box mr={"1rem"}>
+                                            <Avatar name='Ten lop hoc' size='sm' src='https://bit.ly/broken-link' />
+                                        </Box>
+                                        <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>{item.className}</Text>
+                                    </Box>
+                                ))) : (
+                                <Box cursor={"pointer"} display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
+                                    <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>Tạo lớp học mới ngay</Text>
                                 </Box>
-                                <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>Tên lớp học</Text>
-                            </Box>
+                            )}
+
+
                         </Box>
                         <Box borderBottomWidth="1px">
                             <Text color={"#5f6368"} py={"1rem"}>Đã đăng ký</Text>
@@ -47,12 +69,18 @@ function Slidebar() {
                                 </Box>
                                 <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>Việc cần làm</Text>
                             </Box>
-                            <Box display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
-                                <Box mr={"1rem"}>
-                                    <Avatar name='Ten lop hoc' size='sm' src='https://bit.ly/broken-link' />
+                            {dataStudent ? (
+                                <Box cursor={"pointer"} display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
+                                    <Box mr={"1rem"}>
+                                        <Avatar name='Ten lop hoc' size='sm' src='https://bit.ly/broken-link' />
+                                    </Box>
+                                    <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>Tên lớp học đã đkí</Text>
                                 </Box>
-                                <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>Tên lớp học đã đkí</Text>
-                            </Box>
+                            ) : (
+                                <Box cursor={"pointer"} display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
+                                    <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>Tham gia lớp học ngay</Text>
+                                </Box>
+                            )}
                         </Box>
                     </DrawerBody>
                 </DrawerContent>

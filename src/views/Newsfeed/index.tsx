@@ -3,8 +3,12 @@ import CoverImage from "./CoverImage";
 import CodeOfFeed from "./CodeOfFeed";
 import NotiTest from "./NotiTest";
 import Feed from "./Feed";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 function Newsfeed() {
+    const router = useRouter()
+    const idClass = router.query.id
     return (
         <Container maxW={"5xl"}>
             <CoverImage />
