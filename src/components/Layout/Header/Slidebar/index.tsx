@@ -70,7 +70,7 @@ function Slidebar() {
                             </Box>
                             {dataStudent ? (
                                 dataStudent.map((item: any) => (
-                                    <Box cursor={"pointer"} display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
+                                    <Box key={item.className} cursor={"pointer"} display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
                                         <Box mr={"1rem"}>
                                             <Avatar name={item.className} size='sm' src='https://bit.ly/broken-link' />
                                         </Box>
