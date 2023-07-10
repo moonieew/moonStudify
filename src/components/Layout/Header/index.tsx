@@ -43,7 +43,7 @@ function Header() {
     const [usernameCreate, setUsernameCreate] = useState<string>("");
     const [emailCreate, setEmailCreate] = useState<string>("");
     const [passCreate, setPassCreate] = useState<string>("");
-    const [info, setInfo] = useState<string>("");
+    const [info, setInfo] = useState<any>();
     const toast = useToast();
 
     const infoUser = async () => {
