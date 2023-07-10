@@ -18,7 +18,7 @@ const imageArray = [
 ]
 
 function Class() {
-    const [data, setData] = useState(null);
+    const [data, setData] = useState([]);
     const router = useRouter();
 
     const dataClass = async () => {

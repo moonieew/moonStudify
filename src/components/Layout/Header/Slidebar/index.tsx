@@ -49,16 +49,15 @@ function Slidebar() {
                                 dataTeacher.map((item: any) => (
                                     <Box key={item._id} cursor={"pointer"} display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
                                         <Box mr={"1rem"}>
-                                            <Avatar name='Ten lop hoc' size='sm' src='https://bit.ly/broken-link' />
+                                            <Avatar name={item.name} size='sm' src='https://bit.ly/broken-link' />
                                         </Box>
-                                        <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>{item.className}</Text>
+                                        <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>{item.name}</Text>
                                     </Box>
                                 ))) : (
                                 <Box cursor={"pointer"} display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
                                     <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>Tạo lớp học mới ngay</Text>
                                 </Box>
                             )}
-
 
                         </Box>
                         <Box borderBottomWidth="1px">
@@ -70,12 +69,14 @@ function Slidebar() {
                                 <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>Việc cần làm</Text>
                             </Box>
                             {dataStudent ? (
-                                <Box cursor={"pointer"} display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
-                                    <Box mr={"1rem"}>
-                                        <Avatar name='Ten lop hoc' size='sm' src='https://bit.ly/broken-link' />
+                                dataStudent.map((item: any) => (
+                                    <Box cursor={"pointer"} display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
+                                        <Box mr={"1rem"}>
+                                            <Avatar name={item.className} size='sm' src='https://bit.ly/broken-link' />
+                                        </Box>
+                                        <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>{item.className}</Text>
                                     </Box>
-                                    <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>Tên lớp học đã đkí</Text>
-                                </Box>
+                                ))
                             ) : (
                                 <Box cursor={"pointer"} display={"flex"} h={"3.5rem"} alignItems={"center"} borderRadius={"0 2rem 2rem 0"} _hover={{ background: "rgb(232,240,254)" }}>
                                     <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>Tham gia lớp học ngay</Text>
