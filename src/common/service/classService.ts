@@ -72,4 +72,12 @@ export const deleteClass = (classId: string) : Promise<any> => {
   });
 }
 
+export const getClassById = (classId: string) : Promise<any> => {
+  return axiosClient.get(`class/by-id?id=${classId}`)
+  .then((response: AxiosResponse) => {
+    return response;
+  })
+  .catch((error: AxiosError) => {});
+}
+
 

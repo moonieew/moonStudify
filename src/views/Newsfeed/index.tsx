@@ -5,10 +5,20 @@ import NotiTest from "./NotiTest";
 import Feed from "./Feed";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { getClassById } from "@/common/service/classService";
 
 function Newsfeed() {
     const router = useRouter()
-    const idClass = router.query.id
+    const [data, setData] = useState()
+    const idClass = router.query.id ?? ''
+    const getInfo = async () => {
+        const dataClass = await getClassById(idClass)
+        setData(dataClass)
+    }
+    useEffect(() => {
+        getInfo()
+    }, [])
+    console.log("data", data)
     return (
         <Container maxW={"5xl"}>
             <CoverImage />
