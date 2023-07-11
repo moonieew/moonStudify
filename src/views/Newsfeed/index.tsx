@@ -47,7 +47,7 @@ const formats = [
 
 function Newsfeed() {
     const router = useRouter()
-    const [data, setData] = useState()
+    const [data, setData] = useState<any>()
     const [showPost, setShowPost] = useState(false)
     const [value, setValue] = useState('');
     const idClass = router.query.id as string
@@ -57,7 +57,7 @@ function Newsfeed() {
     }
     useEffect(() => {
         getInfo()
-    }, [])
+    }, [idClass])
     console.log("data", data)
     const QuillNoSSRWrapper = dynamic(import('react-quill'), {
         ssr: false,
@@ -65,7 +65,7 @@ function Newsfeed() {
     })
     return (
         <Container maxW={"5xl"}>
-            <CoverImage />
+            <CoverImage name={data?.name} desc={data?.description} />
             <Grid templateRows="repeat(1, 1fr)" templateColumns="repeat(6, 1fr)">
                 <GridItem colSpan={1}>
                     <CodeOfFeed />
