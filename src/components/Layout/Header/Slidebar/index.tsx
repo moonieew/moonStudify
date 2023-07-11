@@ -6,11 +6,14 @@ import { SiTestcafe } from "react-icons/si";
 import { FaTasks } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { getClassCreate, getClassJoined } from "@/common/service/classService";
+import { useRouter } from "next/router";
 
 function Slidebar() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [dataTeacher, setDataTeacher] = useState([]);
     const [dataStudent, setDataStudent] = useState([]);
+    const router = useRouter();
+
     const dataClassUser = async () => {
         const res1 = await getClassCreate()
         setDataTeacher(res1)
@@ -31,11 +34,15 @@ function Slidebar() {
                     <DrawerCloseButton />
                     <DrawerHeader borderBottomWidth='1px'><Logo /></DrawerHeader>
                     <DrawerBody>
-                        <Box h={"3.5rem"} display={"flex"} borderBottomWidth="1px" alignItems={"center"}>
+                        <Box cursor="pointer" h={"3.5rem"} display={"flex"} borderBottomWidth="1px" alignItems={"center"} _hover={{ background: "rgb(232,240,254)" }}
+                            onClick={() => router.push('/home')}>
                             <Box mr={"1rem"}>
                                 <GoHome size={"20"} />
                             </Box>
-                            <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}>Lớp học</Text>
+                            <Text fontSize={"14px"} color={"#5f6368"} fontWeight={500}
+                            >
+                                Lớp học
+                            </Text>
                         </Box>
                         <Box borderBottomWidth="1px">
                             <Text color={"#5f6368"} py={"1rem"}>Giảng dạy</Text>
