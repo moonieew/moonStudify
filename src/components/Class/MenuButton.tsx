@@ -13,7 +13,14 @@ import {
 import { BsThreeDotsVertical, BsChatSquareQuote } from 'react-icons/bs';
 import { RiShutDownLine, RiRestartLine, RiFileShredLine } from 'react-icons/ri';
 
-export default function MenuButton() {
+interface menuClassProps {
+    isTeacher: boolean;
+    idClass: string;
+}
+
+export const MenuButton = (props: menuClassProps) => {
+    const { isTeacher, idClass } = props;
+    console.log("isteacher", isTeacher)
     return (
         <Flex justifyContent="center">
             <Popover placement="bottom" isLazy>

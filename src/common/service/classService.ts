@@ -45,3 +45,31 @@ export const createClas = (params: createClassField): Promise<any> => {
     ...params
   })
 }
+
+interface idClass {
+  classId: string
+}
+
+export const joinClass = (params: idClass) : Promise<any> => {
+  return axiosClient.post('/class/join', {
+    ...params
+  })
+}
+
+export const leaveClass = (params: idClass) : Promise<any> => {
+  return axiosClient.post('/class/leave', {
+    ...params
+  })
+}
+
+export const deleteClass = (classId: string) : Promise<any> => {
+  return axiosClient.delete(`/class/?classId=${classId}`)
+  .then((response: AxiosResponse) => {
+    return response;
+  })
+  .catch((error: AxiosError) => {
+    return;
+  });
+}
+
+

@@ -1,5 +1,5 @@
 import Class from "@/components/Class";
-import { Avatar, Box, Button, Center, Checkbox, Flex, FormControl, FormLabel, HStack, Img, Input, InputGroup, InputRightElement, Link, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useColorModeValue, useDisclosure, useToast, VStack } from "@chakra-ui/react";
+import { Avatar, Box, Button, Center, Checkbox, Flex, FormControl, FormLabel, HStack, Img, Input, InputGroup, InputRightElement, Link, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useDisclosure, useToast, VStack } from "@chakra-ui/react";
 import {
     Collapse,
     Container,
@@ -92,7 +92,7 @@ function Header() {
             onClose()
             router.push("/home")
             toast({
-                title: "Bạn đã tạo đăng nhập thành công!",
+                title: "Bạn đã đăng nhập thành công!",
                 status: "success",
                 duration: 5000,
                 isClosable: true
@@ -152,7 +152,7 @@ function Header() {
         setIsLoading(true)
         const data = await logOut()
         setIsOpenLogout(false)
-        removeCookie('token')
+        setInfo(null)
         toast({
             title: "Bạn đã đăng xuất thành công!",
             status: "success",
@@ -170,7 +170,6 @@ function Header() {
         <>
             <Box
                 borderBottomWidth="1px"
-                borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
                 boxShadow='lg'
                 p="1rem"
             >
@@ -211,8 +210,7 @@ function Header() {
                                         </HStack>
                                     </MenuButton>
                                     <MenuList
-                                        bg={useColorModeValue('white', 'gray.900')}
-                                        borderColor={useColorModeValue('gray.200', 'gray.700')}>
+                                    >
                                         <MenuItem>Trang cá nhân</MenuItem>
                                         <MenuDivider />
                                         <MenuItem onClick={openModalLogout}>Đăng xuất</MenuItem>
