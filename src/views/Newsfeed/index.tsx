@@ -10,7 +10,7 @@ import { getClassById } from "@/common/service/classService";
 function Newsfeed() {
     const router = useRouter()
     const [data, setData] = useState()
-    const idClass = router.query.id ?? ''
+    const idClass = router.query.id as string
     const getInfo = async () => {
         const dataClass = await getClassById(idClass)
         setData(dataClass)
