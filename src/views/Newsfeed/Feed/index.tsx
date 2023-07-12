@@ -37,11 +37,6 @@ const formatDate = (dateTime: string) => {
     return formattedDate
 }
 
-const createrPost = async (id: string) => {
-    const res = await getUserById(id)
-    return res.fullname || ''
-}
-
 function Feed({ idNewsfeed }: {
     idNewsfeed: string[]
 }) {

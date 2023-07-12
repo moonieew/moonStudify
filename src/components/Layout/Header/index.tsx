@@ -179,11 +179,11 @@ function Header() {
                         <Slidebar />
                         <Logo />
                     </HStack>
-                    <HStack gap={6}>
+                    {/* <HStack gap={6}>
                         <Box px={"24px"} onClick={goToNewsfeed} as={"button"}>Bảng tin</Box>
                         <Box px={"24px"} onClick={goToExam} as={"button"}>Bài kiểm tra</Box>
                         <Box px={"24px"} onClick={goToMember} as={"button"}>Mọi người</Box>
-                    </HStack>
+                    </HStack> */}
                     <HStack>
                         <Add />
                         {info ? (
