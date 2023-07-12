@@ -1,7 +1,9 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import MoreOption from "./moreOption";
 
-function CodeOfFeed() {
+function CodeOfFeed({ classCode }: {
+    classCode?: string
+}) {
     return (
         <Box display={"flex"}
             flexDirection="column"
@@ -21,7 +23,7 @@ function CodeOfFeed() {
                 <MoreOption />
             </Box>
             <Box>
-                <Text fontSize={"22px"} color={"rgb(23,78,166)"}>3ipng32</Text>
+                <Text fontSize={"18px"} color={"rgb(23,78,166)"} overflow="hidden" textOverflow={"ellipsis"} whiteSpace="nowrap">{classCode}</Text>
             </Box>
         </Box>
     );

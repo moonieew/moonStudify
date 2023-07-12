@@ -25,8 +25,9 @@ function Slidebar() {
     }, [])
     return (
         <>
-            <Box onClick={onOpen}>
-                <HamburgerIcon />
+            <Box onClick={onOpen} borderRadius="50%" _hover={{ bg: "#f0f5ff" }} width="40px" h={"40px"} display="flex"
+                alignItems={"center"} justifyContent="center" cursor={"pointer"} >
+                <HamburgerIcon bgSize={"26px"} />
             </Box>
             <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
                 <DrawerOverlay />

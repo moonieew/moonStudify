@@ -68,12 +68,12 @@ function Newsfeed() {
             <CoverImage name={data?.name} desc={data?.description} />
             <Grid templateRows="repeat(1, 1fr)" templateColumns="repeat(6, 1fr)">
                 <GridItem colSpan={1}>
-                    <CodeOfFeed />
+                    <CodeOfFeed classCode={data?._id} />
                     <NotiTest />
                 </GridItem>
                 <GridItem colSpan={5}>
                     {showPost ? (
-                        <Box border={"0.0625rem solid #dadce0"} borderRadius={"0.5rem"} p={"0.5rem"}>
+                        <Box border={"0.0625rem solid #dadce0"} borderRadius={"0.5rem"} p={"0.5rem"} mb={"1.5rem"} >
                             <Text fontSize={"13px"} color="rgb(25,103,210)" mb={"0.5rem"}>Thông báo nội dung nào đó cho lớp học của bạn</Text>
                             <QuillNoSSRWrapper theme="snow" modules={modules} value={value} formats={formats} onChange={setValue} />
                             <Box display={"flex"} justifyContent="end" gap="8px" mt="1rem">
@@ -82,7 +82,7 @@ function Newsfeed() {
                             </Box>
                         </Box>
                     ) : (
-                        <Box onClick={() => setShowPost(true)} cursor={"pointer"} border={"0.0625rem solid #dadce0"} borderRadius={"0.5rem"} p={"0.5rem"} display="flex" alignItems={"center"}>
+                        <Box onClick={() => setShowPost(true)} cursor={"pointer"} border={"0.0625rem solid #dadce0"} borderRadius={"0.5rem"} p={"0.5rem"} display="flex" alignItems={"center"} mb={"1.5rem"}>
                             <Image src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/anh-meo-cute.jpg"
                                 borderRadius={"50%"}
                                 ml={"1rem"}
@@ -94,7 +94,7 @@ function Newsfeed() {
                             <Text fontSize={"13px"} color="rgba(0,0,0,.549) " _hover={{ color: "rgb(25,103,210)" }}>Thông báo nội dung nào đó cho lớp học của bạn</Text>
                         </Box>
                     )}
-                    <Feed />
+                    <Feed idNewsfeed={data?.newFeeds} />
                 </GridItem>
             </Grid>
         </Container>

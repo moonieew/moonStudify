@@ -171,7 +171,8 @@ function Header() {
             <Box
                 borderBottomWidth="1px"
                 boxShadow='lg'
-                p="1rem"
+                px="1rem"
+                py={"0.5rem"}
             >
                 <Flex justifyContent="space-between" alignItems={"center"}>
                     <HStack>

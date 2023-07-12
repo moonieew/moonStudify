@@ -36,3 +36,13 @@ export const logOut = () : Promise<any> => {
         throw error;
       });
 }
+
+export const getUserById = (id: string): Promise<any> => {
+    return axiosClient.get(`/user/by-id?id=${id}`)
+    .then((response: AxiosResponse) => {
+        return response;  
+      })
+      .catch((error: AxiosError) => {
+        throw error;
+      });
+}
