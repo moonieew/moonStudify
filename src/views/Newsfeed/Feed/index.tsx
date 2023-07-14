@@ -1,4 +1,4 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, Image, Input, InputGroup, InputRightElement, Text } from "@chakra-ui/react";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, Box, Button, Image, Input, InputGroup, InputRightElement, Text } from "@chakra-ui/react";
 import EmptyFeed from "./EmptyFeed";
 import MoreOptionFeedButton from "./MoreOptionFeedButton";
 import { PostCommentIcon } from "@/components/Icon";
@@ -54,49 +54,8 @@ function Feed({ idNewsfeed }: {
             setCreator(res)
         })
     }, [news])
-    console.log("idnewdeed", news)
     return (
         <>
-            {/* <Box border={"0.0625rem solid #dadce0"} borderRadius={"0.5rem"} my={"1.5rem"}>
-                <Box p={"0.5rem 0"}>
-                    <Box h={"3.5rem"} pr={"0.5rem"} whiteSpace={"nowrap"}
-                        display={"flex"}
-                        justifyContent={"space-between"}
-                        alignItems={"center"}
-                    >
-                        <Box display={"flex"}>
-                            <Image src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/anh-meo-cute.jpg"
-                                borderRadius={"50%"}
-                                ml={"1rem"}
-                                h={"2.5rem"}
-                                w={"2.5rem"}
-                                alignSelf={"center"}
-                                m={"0 1rem"}
-                            />
-                            <Box>
-                                <Text fontSize={"14px"} color={"#3c4043"} fontWeight={500}>Le Thi Minh Nguyet</Text>
-                                <Text fontSize={"12px"} color={"#5f6368"}>2 th 4</Text>
-                            </Box>
-                        </Box>
-                        <MoreOptionFeedButton />
-                    </Box>
-                    <Box p={"0 1.5rem"}>
-                        <Text fontSize={"13px"} mb={"1rem"}> Đây là chỗ hiện thông báo nè</Text>
-                    </Box>
-                </Box>
-                <Box borderTop={"0.0625rem solid #e0e0e0"} >
-                    <Box p={"1rem 1.5rem"} display={"flex"} alignItems={"center"}>
-                        <Image src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/anh-meo-cute.jpg"
-                            borderRadius={"50%"}
-                            mr={"1rem"}
-                            h={"2rem"}
-                            w={"2rem"}
-                            alignSelf={"auto"}
-                        />
-                        <CommentInput />
-                    </Box>
-                </Box>
-            </Box> */}
             {news && news.map((item: any, index: number) => (
                 <Box key={item._id} border={"0.0625rem solid #dadce0"} borderRadius={"0.5rem"} mb={"1.5rem"}>
                     <Box p={"0.5rem 0"}>
@@ -106,14 +65,14 @@ function Feed({ idNewsfeed }: {
                             alignItems={"center"}
                         >
                             <Box display={"flex"}>
-                                <Image src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/anh-meo-cute.jpg"
-                                    borderRadius={"50%"}
+                                <Box borderRadius={"50%"}
                                     ml={"1rem"}
                                     h={"2.5rem"}
                                     w={"2.5rem"}
                                     alignSelf={"center"}
-                                    m={"0 1rem"}
-                                />
+                                    m={"0 1rem"}>
+                                    <Avatar w={"100%"} h="100%" name={creator[index]?.fullname} src='https://bit.ly/broken-link' />
+                                </Box>
                                 <Box>
                                     <Text fontSize={"14px"} color={"#3c4043"} fontWeight={500}>
                                         {creator[index]?.fullname}

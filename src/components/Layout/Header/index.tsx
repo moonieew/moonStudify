@@ -51,12 +51,14 @@ function Header() {
     const [isOpenLogout, setIsOpenLogout] = useState(false)
 
     const infoUser = async () => {
-        const res: any = await getInfo()
-        setInfo(res)
+        if (getCookie('token')) {
+            const res: any = await getInfo()
+            setInfo(res)
+        }
     }
     useEffect(() => {
         infoUser();
-    }, [])
+    }, [router.pathname])
 
     const goToNewsfeed = () => {
         router.push("/class/newsfeed")
@@ -83,7 +85,6 @@ function Header() {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "*/*",
-
             }
         }).then((response) => {
             // Xử lý phản hồi thành công
@@ -110,18 +111,6 @@ function Header() {
                 });
             });
         setIsLoading(false);
-        // router.push("/api/auth/login")
-
-        // call api acesstoken
-        // axios.get('https://moonstudify-server.onrender.com/auth/login/accessToken', {
-        //     headers: {
-        //         'accept': 'application/json',
-        //     }
-        // }).then((res) => {
-        //     console.log("res", res)
-        //     const access_token = res.data.data.access_token
-        //     setCookie('token', access_token)
-        // })
     }
     const registerAccount = async () => {
         setIsLoading(true)
@@ -152,6 +141,7 @@ function Header() {
         setIsLoading(true)
         const data = await logOut()
         setIsOpenLogout(false)
+        removeCookie('token')
         setInfo(null)
         toast({
             title: "Bạn đã đăng xuất thành công!",
@@ -162,9 +152,9 @@ function Header() {
         setIsLoading(false)
         router.push("/")
     }
-    const Logout = () => {
-        router.push("/api/auth/logout")
-    }
+    // const Logout = () => {
+    //     router.push("/api/auth/logout")
+    // }
 
     return (
         <>
@@ -176,28 +166,20 @@ function Header() {
             >
                 <Flex justifyContent="space-between" alignItems={"center"}>
                     <HStack>
-                        <Slidebar />
+                        {info && <Slidebar />}
                         <Logo />
                     </HStack>
-                    {/* <HStack gap={6}>
-                        <Box px={"24px"} onClick={goToNewsfeed} as={"button"}>Bảng tin</Box>
-                        <Box px={"24px"} onClick={goToExam} as={"button"}>Bài kiểm tra</Box>
-                        <Box px={"24px"} onClick={goToMember} as={"button"}>Mọi người</Box>
-                    </HStack> */}
                     <HStack>
-                        <Add />
+                        {info && <Add />}
                         {info ? (
                             <Box display={"flex"} alignItems="center" gap={"8px"}>
                                 <Menu>
                                     <MenuButton
                                         py={2}
                                         transition="all 0.3s"
-                                        _focus={{ boxShadow: 'none' }}>
+                                        _focus={{ boxShadow: 'none' }} ml="24px">
                                         <HStack>
-                                            <Avatar
-                                                size={'sm'}
-                                                src={`${info.avatar}`}
-                                            />
+                                            <Avatar size={"sm"} name={info.fullname} src='https://bit.ly/broken-link' />
                                             <VStack
                                                 display={{ base: 'none', md: 'flex' }}
                                                 alignItems="flex-start"
@@ -303,7 +285,7 @@ function Header() {
                                         onChange={(e) => setNameCreate(e.target.value)} />
                                 </FormControl>
                                 <FormControl id="username">
-                                    <FormLabel>Tên thường dùng</FormLabel>
+                                    <FormLabel>Tên đăng nhập</FormLabel>
                                     <Input type="text" value={usernameCreate}
                                         onChange={(e) => setUsernameCreate(e.target.value)} />
                                 </FormControl>

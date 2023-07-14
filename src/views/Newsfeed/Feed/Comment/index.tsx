@@ -1,6 +1,6 @@
 import { getCommentById } from "@/common/service/comment";
 import { getUserById } from "@/common/service/user";
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Image, Text } from "@chakra-ui/react";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, Box, Image, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { MdOutlinePeopleAlt } from "react-icons/md";
 import MoreOptionCommentButton from "../MoreOptionCommentButton/MoreOptionCommentButton";
@@ -50,7 +50,6 @@ function Comment({ idComment }: {
         })
     }, [comment])
 
-    console.log("cmt", creator)
     return (
         <Box borderTop={"0.0625rem solid #e0e0e0"}>
             <Accordion allowToggle>
@@ -69,13 +68,11 @@ function Comment({ idComment }: {
                             {comment && comment.map((item: any, index: number) => (
                                 <Box mb={"1rem"} display={"flex"} justifyContent={"space-between"} key={item._id}>
                                     <Box display={"flex"}>
-                                        <Image
-                                            h={"2rem"}
+                                        <Box h={"2rem"}
                                             m={"0.4rem 1rem 0 0"}
-                                            w={"2rem"}
-                                            src="https://toigingiuvedep.vn/wp-content/uploads/2022/01/anh-meo-cute.jpg"
-                                            borderRadius={"50%"}
-                                        />
+                                            w={"2rem"} borderRadius={"50%"}>
+                                            <Avatar w={"100%"} h="100%" name={creator[index]?.fullname} src='https://bit.ly/broken-link' />
+                                        </Box>
                                         <Box>
                                             <Box>
                                                 <Box display={"flex"} alignItems={"center"}>

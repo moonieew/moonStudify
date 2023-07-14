@@ -11,7 +11,10 @@ function Add() {
         <>
             <Popover placement="bottom-end" isLazy>
                 <PopoverTrigger>
-                    <AddIcon />
+                    <Box borderRadius="50%" _hover={{ bg: "#f0f5ff" }} width="40px" h={"40px"} display="flex" alignItems={"center"}
+                        justifyContent="center" cursor={"pointer"}>
+                        <AddIcon />
+                    </Box>
                 </PopoverTrigger>
                 <PopoverContent w="fit-content" h={"112px"} boxShadow='xl' _focus={{ boxShadow: 'none' }}>
                     <PopoverArrow />

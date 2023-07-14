@@ -2,15 +2,15 @@ import { EditIcon } from "@chakra-ui/icons";
 import { Box, Image, Text } from "@chakra-ui/react";
 
 const imageArray = [
-    "https://www.gstatic.com/classroom/themes/img_breakfast_thumb.jpg",
-    "https://gstatic.com/classroom/themes/Honors_thumb.jpg",
-    "https://gstatic.com/classroom/themes/img_graduation_thumb.jpg",
-    "https://www.gstatic.com/classroom/themes/img_bookclub_thumb.jpg",
-    "https://gstatic.com/classroom/themes/img_code_thumb.jpg",
-    "https://www.gstatic.com/classroom/themes/img_reachout_thumb.jpg",
-    "https://www.gstatic.com/classroom/themes/img_learnlanguage_thumb.jpg",
-    "https://www.gstatic.com/classroom/themes/img_backtoschool_thumb.jpg",
-    "https://www.gstatic.com/classroom/themes/img_read_thumb.jpg"
+    "https://gstatic.com/classroom/themes/img_breakfast.jpg",
+    "https://gstatic.com/classroom/themes/Honors.jpg",
+    "https://gstatic.com/classroom/themes/img_graduation.jpg",
+    "https://gstatic.com/classroom/themes/img_bookclub.jpg",
+    "https://gstatic.com/classroom/themes/img_code.jpg",
+    "https://gstatic.com/classroom/themes/img_reachout.jpg",
+    "https://gstatic.com/classroom/themes/img_learnlanguage.jpg",
+    "https://gstatic.com/classroom/themes/img_backtoschool.jpg",
+    "https://gstatic.com/classroom/themes/img_read.jpg"
 ]
 
 function CoverImage({ name, desc }: {

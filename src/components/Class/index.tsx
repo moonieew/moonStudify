@@ -1,5 +1,5 @@
 import { deleteClass, getClass, joinClass, leaveClass } from "@/common/service/classService";
-import { Box, Button, Flex, Grid, GridItem, IconButton, Image, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverTrigger, Stack, Text, useToast } from "@chakra-ui/react";
+import { Avatar, Box, Button, Flex, Grid, GridItem, IconButton, Image, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverTrigger, Stack, Text, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -194,7 +194,7 @@ const Class = () => {
                                 {item.isTeacher == false ? (
                                     <Box h={"137px"} display="flex" justifyContent={"end"} onClick={() => router.push(`/class/${item.class._id}`)}>
                                         <Box h="75px" w="75px" position="absolute" m={"-42px 16px 0"}>
-                                            <Image src={`${item.class.teacher.avatar}`} borderRadius={"50%"} />
+                                            <Avatar size={"lg"} w="100%" h={"100%"} name={item.class.teacher.fullname} src='https://bit.ly/broken-link' />
                                         </Box>
                                     </Box>
                                 ) : (
