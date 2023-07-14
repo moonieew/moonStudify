@@ -137,21 +137,7 @@ function Header() {
         setIsOpenLogout(true)
     }
 
-    const logout = async () => {
-        setIsLoading(true)
-        const data = await logOut()
-        setIsOpenLogout(false)
-        removeCookie('token')
-        setInfo(null)
-        toast({
-            title: "Bạn đã đăng xuất thành công!",
-            status: "success",
-            duration: 5000,
-            isClosable: true
-        });
-        setIsLoading(false)
-        router.push("/")
-    }
+
     // const Logout = () => {
     //     router.push("/api/auth/logout")
     // }
@@ -172,52 +158,13 @@ function Header() {
                     <HStack>
                         {info && <Add />}
                         {info ? (
-                            <Box display={"flex"} alignItems="center" gap={"8px"}>
-                                <Menu>
-                                    <MenuButton
-                                        py={2}
-                                        transition="all 0.3s"
-                                        _focus={{ boxShadow: 'none' }} ml="24px">
-                                        <HStack>
-                                            <Avatar size={"sm"} name={info.fullname} src='https://bit.ly/broken-link' />
-                                            <VStack
-                                                display={{ base: 'none', md: 'flex' }}
-                                                alignItems="flex-start"
-                                                spacing="1px"
-                                                ml="2">
-                                                <Text fontSize="sm">{info.username}</Text>
-                                            </VStack>
-                                            <Box display={{ base: 'none', md: 'flex' }}>
-                                                <FiChevronDown />
-                                            </Box>
-                                        </HStack>
-                                    </MenuButton>
-                                    <MenuList
-                                    >
-                                        <MenuItem>Trang cá nhân</MenuItem>
-                                        <MenuDivider />
-                                        <MenuItem onClick={openModalLogout}>Đăng xuất</MenuItem>
-                                    </MenuList>
-                                </Menu>
-                            </Box>
+                            <Profile info={info} setInfoUser={() => setInfo(null)} />
                         ) : (
                             <Box display={"flex"} >
                                 <Box px={"24px"} as={"button"} onClick={onOpen}>Đăng nhập</Box>
                                 <Box px={"24px"} as={"button"} onClick={openModal} >Đăng ký</Box>
                             </Box>
                         )}
-
-
-                        {/* {!user && (
-                            <Box px={"24px"} onClick={Login} as={"button"}>Login</Box>
-                        )}
-
-                        {user && (
-                            <>
-                                <Profile />
-                                <Box px={"24px"} onClick={Logout} as={"button"}>Logout</Box>
-                            </>
-                        )} */}
                     </HStack>
                 </Flex>
             </Box>
@@ -338,31 +285,7 @@ function Header() {
                     </ModalBody>
                 </ModalContent>
             </Modal>
-            <Modal
-                isOpen={isOpenLogout} onClose={closeModalLogout}
-                size="sm"
-            >
-                <ModalOverlay />
-                <ModalContent>
-                    <Box p={"24px"}>
-                        <Center mb="12px">
-                            <Text>
-                                Bạn có muốn đăng xuất không?
-                            </Text>
-                        </Center>
-                        <Flex w="full">
-                            <Button flex="1" mr="10px" outline="1px solid #919191" bg={"#ED2B2A"} isLoading={isLoading} onClick={logout}>
-                                <Text color={"black"}>
-                                    Có
-                                </Text>
-                            </Button>
-                            <Button flex="1" variant="outline" onClick={closeModalLogout}>
-                                Không
-                            </Button>
-                        </Flex>
-                    </Box>
-                </ModalContent>
-            </Modal>
+
         </>
     );
 }
