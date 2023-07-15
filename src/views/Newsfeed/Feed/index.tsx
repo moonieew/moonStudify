@@ -42,18 +42,23 @@ function Feed({ idNewsfeed }: {
 }) {
     const [news, setNews] = useState<any>([])
     const [creator, setCreator] = useState<any>([])
+    const [isRefresh, setIsRefresh] = useState(false)
 
     useEffect(() => {
         getInfoNew(idNewsfeed).then((newsfeedArr) => {
-            setNews(newsfeedArr);
+            console.log("first", newsfeedArr)
+            setNews(newsfeedArr.reverse());
         });
-    }, [idNewsfeed])
+    }, [idNewsfeed, isRefresh])
 
     useEffect(() => {
         getInfoCreator(news).then((res) => {
             setCreator(res)
         })
     }, [news])
+    const onRefresh = () => {
+        setIsRefresh(pre => !pre)
+    }
     return (
         <>
             {news && news.map((item: any, index: number) => (
@@ -100,7 +105,7 @@ function Feed({ idNewsfeed }: {
                                 w={"2rem"}
                                 alignSelf={"auto"}
                             />
-                            <CommentInput newsfeedId={item._id} />
+                            <CommentInput newsfeedId={item._id} refresh={onRefresh} />
                         </Box>
                     </Box>
                 </Box>

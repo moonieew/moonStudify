@@ -3,20 +3,29 @@ import { PostCommentIcon } from "@/components/Icon";
 import { Box, Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { useState } from "react";
 
-function CommentInput({ newsfeedId }: {
-    newsfeedId: string
+function CommentInput({ newsfeedId, refresh }: {
+    newsfeedId: string,
+    refresh: () => void
 }) {
     const [cmt, setCmt] = useState<string>("");
     const [isLoading, setIsLoading] = useState(false)
 
     const handleComment = async () => {
-        setIsLoading(true)
-        const res = await createComment({
-            content: cmt,
-            newFeedId: newsfeedId
-        })
-        setIsLoading(false)
-        setCmt('')
+        try {
+            setIsLoading(true)
+            const res = await createComment({
+                content: cmt,
+                newFeedId: newsfeedId
+            })
+            setCmt('')
+            refresh && refresh()
+        } catch (error) {
+
+        } finally {
+            setIsLoading(false)
+
+        }
+
     }
 
     return (
