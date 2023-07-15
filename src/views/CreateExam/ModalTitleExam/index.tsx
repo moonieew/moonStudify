@@ -1,11 +1,21 @@
 import { CloseIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, HStack, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, VStack, useColorModeValue, useDisclosure, Input, Textarea } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 
 function TitleExam({ isOpen, onClose }: {
     isOpen: boolean;
     onClose: () => void;
 }) {
+    const [nameTest, setNameTest] = useState<string>("")
+    const [desc, setDesc] = useState<string>("")
+    const [timeStart, setTimeStart] = useState<any>()
+    const [timeEnd, setTimeEnd] = useState<any>()
+
+    useEffect(() => {
+        console.log("time start", timeStart)
+    }, [timeStart])
+
     return (
         <Modal onClose={onClose} size="3xl" isOpen={isOpen}>
             <ModalOverlay />
@@ -15,11 +25,13 @@ function TitleExam({ isOpen, onClose }: {
                         <Box pr={"32px"} w="100%">
                             <Box m={"0 0 16px"}>
                                 <Text fontSize={"0.875rem"} fontWeight="700" m={"0 0 0.25rem"}>Tên bài kiểm tra</Text>
-                                <Input focusBorderColor='rgb(19, 104, 206)' placeholder='Tên bài kiểm tra ...' />
+                                <Input focusBorderColor='rgb(19, 104, 206)' placeholder='Tên bài kiểm tra ...'
+                                    value={nameTest} onChange={e => setNameTest(e.target.value)} />
                             </Box>
                             <Box m={"0 0 16px"}>
                                 <Text fontSize={"0.875rem"} fontWeight="700" m={"0 0 0.25rem"}>Mô tả</Text>
-                                <Textarea focusBorderColor='rgb(19, 104, 206)' placeholder='Mô tả...' />
+                                <Textarea focusBorderColor='rgb(19, 104, 206)' placeholder='Mô tả...'
+                                    value={desc} onChange={e => setDesc(e.target.value)} />
                             </Box>
                         </Box>
                     </Box>
@@ -30,6 +42,8 @@ function TitleExam({ isOpen, onClose }: {
                                 placeholder="Select Date and Time"
                                 size="md"
                                 type="datetime-local"
+                                value={timeStart}
+                                onChange={e => setTimeStart(e.target.value)}
                             />
                         </Box>
                         <Box w={"47%"}>
@@ -38,6 +52,8 @@ function TitleExam({ isOpen, onClose }: {
                                 placeholder="Select Date and Time"
                                 size="md"
                                 type="datetime-local"
+                                value={timeEnd}
+                                onChange={e => setTimeEnd(e.target.value)}
                             />
                         </Box>
                     </Box>
