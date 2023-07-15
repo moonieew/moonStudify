@@ -64,7 +64,7 @@ function Answer() {
             <Box mr={"0.5rem"} minH="4rem" p={"0 0.25rem"} alignItems="center" width={"calc(50% - 3rem)"}
                 boxShadow="rgba(0, 0, 0, 0.15) 0px -0.25rem 0px 0px inset" display={"flex"} justifyContent="start" flex={"1 0 auto"}
                 transition="box-shadow 0.2s ease 0s, background 0.2s ease 0s, opacity 0.2s ease 0s" borderRadius={"4px"} maxW="100%"
-                bgColor={answerB != "" ? "rgb(19, 104, 206)" : "rgb(255, 255, 255)"} color="rgb(204, 204, 204)" fill={"rgb(255, 255, 255)"} mt="2rem" mx={"0.5rem"}
+                bgColor={answerB ? "rgb(19, 104, 206)" : "rgb(255, 255, 255)"} color="rgb(204, 204, 204)" fill={"rgb(255, 255, 255)"} mt="2rem" mx={"0.5rem"}
             >
                 <Box bgColor={"rgb(19, 104, 206)"} borderRadius="4px" h={"calc(100% - 1rem)"} margin="0 0.25rem 0.25rem"
                     transition={"box-shadow 0.2s ease 0s, background 0.2s ease 0s, opacity 0.2s ease 0s"}
@@ -75,7 +75,7 @@ function Answer() {
                 </Box>
                 <Box minH={"7rem"} display="flex" w={"100%"} h="100%" maxW={"calc(100% - 3rem)"} alignItems="center">
                     <Box w="100%" color={"#fff"}>
-                        <Input placeholder='Đáp án 2' value={answerB}
+                        <Input placeholder='Đáp án 2' value={answerB ?? ""}
                             onChange={(e) => setAnswerB(e.target.value)} focusBorderColor={'transparent'} />
                     </Box>
                     <Box bg={correctB ? "#52c41a" : "transparent"} m="0 0.5rem" w={"2.875rem"} h="2.875rem" border={"0.25rem solid rgb(255, 255, 255)"}
@@ -92,7 +92,7 @@ function Answer() {
             <Box mr={"0.5rem"} minH="4rem" p={"0 0.25rem"} alignItems="center" width={"calc(50% - 3rem)"}
                 boxShadow="rgba(0, 0, 0, 0.15) 0px -0.25rem 0px 0px inset" display={"flex"} justifyContent="start" flex={"1 0 auto"}
                 transition="box-shadow 0.2s ease 0s, background 0.2s ease 0s, opacity 0.2s ease 0s" borderRadius={"4px"} maxW="100%"
-                bgColor={answerC != "" ? "rgb(216, 158, 0)" : "rgb(255, 255, 255)"} color="rgb(204, 204, 204)" fill={"rgb(255, 255, 255)"} mt="2rem" mx={"0.5rem"}
+                bgColor={answerC ? "rgb(216, 158, 0)" : "rgb(255, 255, 255)"} color="rgb(204, 204, 204)" fill={"rgb(255, 255, 255)"} mt="2rem" mx={"0.5rem"}
             >
                 <Box bgColor={"rgb(216, 158, 0)"} borderRadius="4px" h={"calc(100% - 1rem)"} margin="0 0.25rem 0.25rem"
                     transition={"box-shadow 0.2s ease 0s, background 0.2s ease 0s, opacity 0.2s ease 0s"}
@@ -103,7 +103,7 @@ function Answer() {
                 </Box>
                 <Box minH={"7rem"} display="flex" w={"100%"} h="100%" maxW={"calc(100% - 3rem)"} alignItems="center">
                     <Box w="100%" color={"#fff"}>
-                        <Input placeholder='Đáp án 3' value={answerC}
+                        <Input placeholder='Đáp án 3' value={answerC ?? ""}
                             onChange={(e) => setAnswerC(e.target.value)} focusBorderColor={'transparent'} />
                     </Box>
                     <Box bg={correctC ? "#52c41a" : "transparent"} m="0 0.5rem" w={"2.875rem"} h="2.875rem" border={"0.25rem solid rgb(255, 255, 255)"}
@@ -120,7 +120,7 @@ function Answer() {
             <Box mr={"0.5rem"} minH="4rem" p={"0 0.25rem"} alignItems="center" width={"calc(50% - 3rem)"}
                 boxShadow="rgba(0, 0, 0, 0.15) 0px -0.25rem 0px 0px inset" display={"flex"} justifyContent="start" flex={"1 0 auto"}
                 transition="box-shadow 0.2s ease 0s, background 0.2s ease 0s, opacity 0.2s ease 0s" borderRadius={"4px"} maxW="100%"
-                bgColor={answerD != "" ? "rgb(38, 137, 12)" : "rgb(255, 255, 255)"} color="rgb(204, 204, 204)" fill={"rgb(255, 255, 255)"} mt="2rem" mx={"0.5rem"}
+                bgColor={answerD ? "rgb(38, 137, 12)" : "rgb(255, 255, 255)"} color="rgb(204, 204, 204)" fill={"rgb(255, 255, 255)"} mt="2rem" mx={"0.5rem"}
             >
                 <Box bgColor={"rgb(38, 137, 12)"} borderRadius="4px" h={"calc(100% - 1rem)"} margin="0 0.25rem 0.25rem"
                     transition={"box-shadow 0.2s ease 0s, background 0.2s ease 0s, opacity 0.2s ease 0s"}
@@ -131,7 +131,7 @@ function Answer() {
                 </Box>
                 <Box minH={"7rem"} display="flex" w={"100%"} h="100%" maxW={"calc(100% - 3rem)"} alignItems="center">
                     <Box w="100%" color={"#fff"}>
-                        <Input placeholder='Đáp án 4' value={answerD}
+                        <Input placeholder='Đáp án 4' value={answerD ?? ""}
                             onChange={(e) => setAnswerD(e.target.value)} focusBorderColor={'transparent'} />
                     </Box>
                     <Box bg={correctD ? "#52c41a" : "transparent"} m="0 0.5rem" w={"2.875rem"} h="2.875rem" border={"0.25rem solid rgb(255, 255, 255)"}
