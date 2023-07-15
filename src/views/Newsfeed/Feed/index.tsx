@@ -100,7 +100,7 @@ function Feed({ idNewsfeed }: {
                                 w={"2rem"}
                                 alignSelf={"auto"}
                             />
-                            <CommentInput />
+                            <CommentInput newsfeedId={item._id} />
                         </Box>
                     </Box>
                 </Box>

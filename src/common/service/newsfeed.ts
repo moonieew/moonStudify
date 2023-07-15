@@ -8,3 +8,16 @@ export const getNewsfeedById = (id: string): Promise<any> => {
       })
       .catch((error: AxiosError) => {});
 }
+
+interface createPostField {
+  content: string;
+  attachmentLink: string;
+  newFeedUrl: string;
+  classId: string
+}
+
+export const createPost = (params : createPostField) : Promise<any> => {
+  return axiosClient.post('/new-feed/', {
+    ...params
+  })
+}

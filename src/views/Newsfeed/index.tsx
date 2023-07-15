@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Container, Grid, GridItem, Image, Text } from "@chakra-ui/react";
+import { Alert, AlertIcon, Avatar, Box, Button, Container, Grid, GridItem, Input, Text, useToast } from "@chakra-ui/react";
 import CoverImage from "./CoverImage";
 import CodeOfFeed from "./CodeOfFeed";
 import NotiTest from "./NotiTest";
@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getClassById } from "@/common/service/classService";
 import dynamic from "next/dynamic";
+import { createPost } from "@/common/service/newsfeed";
 
 const modules = {
     toolbar: [
@@ -50,53 +51,92 @@ function Newsfeed() {
     const [data, setData] = useState<any>()
     const [showPost, setShowPost] = useState(false)
     const [value, setValue] = useState('');
+    const [post, setPost] = useState<string>("");
+    const [isLoading, setIsLoading] = useState(false)
+    const toast = useToast();
+
     const idClass = router.query.id as string
-    const getInfo = async () => {
+    const getInfoClass = async () => {
         const dataClass = await getClassById(idClass)
         setData(dataClass)
     }
+
     useEffect(() => {
-        getInfo()
+        getInfoClass()
     }, [idClass])
     const QuillNoSSRWrapper = dynamic(import('react-quill'), {
         ssr: false,
         loading: () => <p>Loading ...</p>,
     })
+    const handlePost = async () => {
+        setIsLoading(true)
+        const res = await createPost({
+            content: post,
+            attachmentLink: "",
+            newFeedUrl: "",
+            classId: data._id
+        })
+        if (res) {
+            toast({
+                title: "Bài viết đã được đăng",
+                status: "success",
+                duration: 1000,
+                isClosable: true
+            });
+        } else {
+            toast({
+                title: "Đã có lỗi xảy ra!",
+                status: "error",
+                duration: 1000,
+                isClosable: true
+            });
+        }
+        setShowPost(false)
+        setIsLoading(true)
+    }
     return (
-        <Container maxW={"5xl"}>
-            <CoverImage name={data?.name} desc={data?.description} />
-            <Grid templateRows="repeat(1, 1fr)" templateColumns="repeat(6, 1fr)">
-                <GridItem colSpan={1}>
-                    <CodeOfFeed classCode={data?._id} />
-                    <NotiTest />
-                </GridItem>
-                <GridItem colSpan={5}>
-                    {showPost ? (
-                        <Box border={"0.0625rem solid #dadce0"} borderRadius={"0.5rem"} p={"0.5rem"} mb={"1.5rem"} boxShadow="0 1px 2px 0 rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15)">
-                            <Text fontSize={"13px"} color="rgb(25,103,210)" mb={"0.5rem"}>Thông báo nội dung nào đó cho lớp học của bạn</Text>
-                            <QuillNoSSRWrapper theme="snow" modules={modules} value={value} formats={formats} onChange={setValue} />
-                            <Box display={"flex"} justifyContent="end" gap="8px" mt="1rem">
-                                <Button onClick={() => setShowPost(false)}>Huỷ</Button>
-                                <Button>Đăng</Button>
+        <>
+
+            <Container maxW={"5xl"} >
+                <Box h={"68px"} />
+                <CoverImage name={data?.name} desc={data?.description} />
+                <Grid templateRows="repeat(1, 1fr)" templateColumns="repeat(6, 1fr)">
+                    <GridItem colSpan={1}>
+                        <CodeOfFeed classCode={data?._id} />
+                        <NotiTest />
+                    </GridItem>
+                    <GridItem colSpan={5}>
+                        {showPost ? (
+                            <Box border={"0.0625rem solid #dadce0"} borderRadius={"0.5rem"} p={"0.5rem"} mb={"1.5rem"} boxShadow="0 1px 2px 0 rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15)">
+                                <Text fontSize={"13px"} color="rgb(25,103,210)" mb={"0.5rem"}>Thông báo nội dung nào đó cho lớp học của bạn</Text>
+                                <Input type="text" value={post}
+                                    onChange={(e) => setPost(e.target.value)} />
+                                {/* <QuillNoSSRWrapper theme="snow" modules={modules} value={value} formats={formats} onChange={setValue} /> */}
+                                <Box display={"flex"} justifyContent="end" gap="8px" mt="1rem">
+                                    <Button onClick={() => setShowPost(false)} bg="none">Huỷ</Button>
+                                    <Button _hover={{ bg: "#91caff" }} onClick={handlePost} isLoading={isLoading}>
+                                        Đăng
+                                    </Button>
+                                </Box>
                             </Box>
-                        </Box>
-                    ) : (
-                        <Box onClick={() => setShowPost(true)} cursor={"pointer"} border={"0.0625rem solid #dadce0"} borderRadius={"0.5rem"} p={"0.5rem"} display="flex" alignItems={"center"} mb={"1.5rem"}>
-                            <Box borderRadius={"50%"}
-                                ml={"1rem"}
-                                h={"2.5rem"}
-                                w={"2.5rem"}
-                                alignSelf={"center"}
-                                m={"0 1rem"}>
-                                <Avatar w={"100%"} h="100%" src='https://bit.ly/broken-link' />
+                        ) : (
+                            <Box onClick={() => setShowPost(true)} cursor={"pointer"} border={"0.0625rem solid #dadce0"} borderRadius={"0.5rem"} p={"0.5rem"} display="flex" alignItems={"center"} mb={"1.5rem"}>
+                                <Box borderRadius={"50%"}
+                                    ml={"1rem"}
+                                    h={"2.5rem"}
+                                    w={"2.5rem"}
+                                    alignSelf={"center"}
+                                    m={"0 1rem"}>
+                                    <Avatar w={"100%"} h="100%" src='https://bit.ly/broken-link' />
+                                </Box>
+                                <Text fontSize={"13px"} color="rgba(0,0,0,.549) " _hover={{ color: "rgb(25,103,210)" }}>Thông báo nội dung nào đó cho lớp học của bạn</Text>
                             </Box>
-                            <Text fontSize={"13px"} color="rgba(0,0,0,.549) " _hover={{ color: "rgb(25,103,210)" }}>Thông báo nội dung nào đó cho lớp học của bạn</Text>
-                        </Box>
-                    )}
-                    <Feed idNewsfeed={data?.newFeeds} />
-                </GridItem>
-            </Grid>
-        </Container>
+                        )}
+                        <Feed idNewsfeed={data?.newFeeds} />
+                    </GridItem>
+                </Grid>
+            </Container>
+        </>
     );
 }
 

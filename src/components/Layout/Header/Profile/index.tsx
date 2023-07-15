@@ -54,13 +54,13 @@ function Profile({ info, setInfoUser }: {
                         transition="all 0.3s"
                         _focus={{ boxShadow: 'none' }} ml="24px">
                         <HStack>
-                            <Avatar size={"sm"} name={info.fullname} src='https://bit.ly/broken-link' />
+                            <Avatar size={"sm"} name={info?.fullname} src='https://bit.ly/broken-link' />
                             <VStack
                                 display={{ base: 'none', md: 'flex' }}
                                 alignItems="flex-start"
                                 spacing="1px"
                                 ml="2">
-                                <Text fontSize="sm">{info.username}</Text>
+                                <Text fontSize="sm">{info?.username}</Text>
                             </VStack>
                             <Box display={{ base: 'none', md: 'flex' }}>
                                 <FiChevronDown />

@@ -11,6 +11,7 @@ function Exam() {
 
     return (
         <Container maxW={"5xl"}>
+            <Box h={"68px"} />
             <Box
                 onClick={goToCreateExam}
                 as={"button"}

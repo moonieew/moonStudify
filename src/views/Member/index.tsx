@@ -8,6 +8,7 @@ function Member() {
 
     return (
         <>
+            <Box h={"68px"} />
             <Box maxW={"47.5rem"} margin={"0 auto"} p={"1.5rem 1.5rem"}>
                 <Box mb={"2rem"}>
                     <Box borderBottom={"1px solid rgb(25,103,210)"} mb={"0.25rem"} pl={"1rem"} h={"4.5rem"}>
