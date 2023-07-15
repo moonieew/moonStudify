@@ -25,6 +25,11 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
+    "/class/[id]": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/class/[id].js"
+    ],
     "/createexam": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
