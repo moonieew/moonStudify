@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Avatar, Box, Button, Container, Grid, GridItem, Input, Text, useToast } from "@chakra-ui/react";
+import { Alert, AlertIcon, Avatar, Box, Button, Container, Grid, GridItem, Input, Skeleton, Text, useToast } from "@chakra-ui/react";
 import CoverImage from "./CoverImage";
 import CodeOfFeed from "./CodeOfFeed";
 import NotiTest from "./NotiTest";
@@ -9,42 +9,42 @@ import { getClassById } from "@/common/service/classService";
 import dynamic from "next/dynamic";
 import { createPost } from "@/common/service/newsfeed";
 
-const modules = {
-    toolbar: [
-        [{ header: '1' }, { header: '2' }, { font: [] }],
-        [{ size: [] }],
-        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-        [
-            { list: 'ordered' },
-            { list: 'bullet' },
-            { indent: '-1' },
-            { indent: '+1' },
-        ],
-        ['link', 'image', 'video'],
-        ['clean'],
-    ],
-    clipboard: {
-        // toggle to add extra line breaks when pasting HTML:
-        matchVisual: false,
-    },
-}
+// const modules = {
+//     toolbar: [
+//         [{ header: '1' }, { header: '2' }, { font: [] }],
+//         [{ size: [] }],
+//         ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+//         [
+//             { list: 'ordered' },
+//             { list: 'bullet' },
+//             { indent: '-1' },
+//             { indent: '+1' },
+//         ],
+//         ['link', 'image', 'video'],
+//         ['clean'],
+//     ],
+//     clipboard: {
+//         // toggle to add extra line breaks when pasting HTML:
+//         matchVisual: false,
+//     },
+// }
 
-const formats = [
-    'header',
-    'font',
-    'size',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'link',
-    'image',
-    'video',
-]
+// const formats = [
+//     'header',
+//     'font',
+//     'size',
+//     'bold',
+//     'italic',
+//     'underline',
+//     'strike',
+//     'blockquote',
+//     'list',
+//     'bullet',
+//     'indent',
+//     'link',
+//     'image',
+//     'video',
+// ]
 
 function Newsfeed() {
     const router = useRouter()
@@ -54,20 +54,24 @@ function Newsfeed() {
     const [post, setPost] = useState<string>("");
     const [isLoading, setIsLoading] = useState(false)
     const toast = useToast();
+    const [loading, setLoading] = useState(false)
+    const [isRefresh, setIsRefresh] = useState(false)
 
     const idClass = router.query.id as string
     const getInfoClass = async () => {
+        setLoading(true)
         const dataClass = await getClassById(idClass)
         setData(dataClass)
+        setLoading(false)
     }
 
     useEffect(() => {
         getInfoClass()
-    }, [idClass])
-    const QuillNoSSRWrapper = dynamic(import('react-quill'), {
-        ssr: false,
-        loading: () => <p>Loading ...</p>,
-    })
+    }, [idClass, isRefresh])
+    // const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+    //     ssr: false,
+    //     loading: () => <p>Loading ...</p>,
+    // })
     const handlePost = async () => {
         setIsLoading(true)
         const res = await createPost({
@@ -91,12 +95,44 @@ function Newsfeed() {
                 isClosable: true
             });
         }
+        setIsRefresh(pre => !pre)
         setShowPost(false)
         setIsLoading(true)
     }
     return (
         <>
-
+            {loading && (
+                <Container maxW={"5xl"}>
+                    <Box h={"68px"} />
+                    <Skeleton h={"15rem"} w={"100%"} borderRadius={"0.5rem"} my={"1.5rem"} />
+                    <Grid templateRows="repeat(1, 1fr)" templateColumns="repeat(6, 1fr)">
+                        <GridItem colSpan={1}>
+                            <Skeleton pb={"0.5rem"}
+                                borderRadius={"0.5rem"}
+                                mr="1.5rem"
+                                mb={"1.5rem"}
+                                p={"1rem"}
+                                w={"196px"}
+                                h={"98px"} />
+                            <Skeleton pb={"0.5rem"}
+                                borderRadius={"0.5rem"}
+                                mr="1.5rem"
+                                mb={"1.5rem"}
+                                p={"1rem"}
+                                w={"196px"}
+                                h={"98px"} />
+                        </GridItem>
+                        <GridItem colSpan={5}>
+                            <Skeleton borderRadius={"0.5rem"}
+                                h={"2.5rem"}
+                                w="100%"
+                                mb={"1.5rem"} />
+                            <Skeleton w={"100%"} h="5rem" borderRadius={"0.5rem"} mb={"1.5rem"} />
+                            <Skeleton w={"100%"} h="5rem" borderRadius={"0.5rem"} mb={"1.5rem"} />
+                        </GridItem>
+                    </Grid>
+                </Container>
+            )}
             <Container maxW={"5xl"} >
                 <Box h={"68px"} />
                 <CoverImage name={data?.name} desc={data?.description} />

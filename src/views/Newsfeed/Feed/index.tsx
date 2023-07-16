@@ -1,4 +1,4 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, Box, Button, Image, Input, InputGroup, InputRightElement, Text } from "@chakra-ui/react";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, Box, Button, Image, Input, InputGroup, InputRightElement, SkeletonCircle, SkeletonText, Text } from "@chakra-ui/react";
 import EmptyFeed from "./EmptyFeed";
 import MoreOptionFeedButton from "./MoreOptionFeedButton";
 import { PostCommentIcon } from "@/components/Icon";
@@ -43,11 +43,14 @@ function Feed({ idNewsfeed }: {
     const [news, setNews] = useState<any>([])
     const [creator, setCreator] = useState<any>([])
     const [isRefresh, setIsRefresh] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        setLoading(true)
         getInfoNew(idNewsfeed).then((newsfeedArr) => {
             setNews(newsfeedArr.reverse());
         });
+        setLoading(false)
     }, [idNewsfeed, isRefresh])
 
     useEffect(() => {
@@ -60,6 +63,22 @@ function Feed({ idNewsfeed }: {
     }
     return (
         <>
+            {loading && (
+                <Box w={"100%"} p={"0.5rem 0"} >
+                    <Box padding='6' boxShadow='lg' bg='white' mb="1.5rem">
+                        <SkeletonCircle size='10' />
+                        <SkeletonText mt='4' noOfLines={3} spacing='4' skeletonHeight='2' />
+                    </Box>
+                    <Box padding='6' boxShadow='lg' bg='white' mb="1.5rem">
+                        <SkeletonCircle size='10' />
+                        <SkeletonText mt='4' noOfLines={3} spacing='4' skeletonHeight='2' />
+                    </Box>
+                    <Box padding='6' boxShadow='lg' bg='white' mb="1.5rem">
+                        <SkeletonCircle size='10' />
+                        <SkeletonText mt='4' noOfLines={3} spacing='4' skeletonHeight='2' />
+                    </Box>
+                </Box>
+            )}
             {news && news.map((item: any, index: number) => (
                 <Box key={item._id} border={"0.0625rem solid #dadce0"} borderRadius={"0.5rem"} mb={"1.5rem"}>
                     <Box p={"0.5rem 0"}>

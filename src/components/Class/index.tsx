@@ -163,7 +163,7 @@ const Class = () => {
                 {
                     data && data.map((item: any) => (
                         <GridItem colSpan={1} key={item.class._id}>
-                            <Box cursor="pointer" w={"302px"} h={"296px"} border="0.0625rem solid #dadce0" borderRadius={"0.5rem"} m="1rem" _hover={{ boxShadow: "lg" }}>
+                            <Box cursor="pointer" w={"302px"} h={"296px"} border="0.0625rem solid #dadce0" borderRadius={"0.5rem"} m="1rem" _hover={{ boxShadow: "lg", transform: "scale(1.04)" }}>
                                 <Box w={"100%"} h="100px" backgroundImage={getRandomImage()} display="flex" flexDirection={"column"} justifyContent="space-between" p={"1rem 1rem 0.75rem"}>
                                     <Box
                                         display={"flex"} justifyContent="space-between" alignItems={"center"} >

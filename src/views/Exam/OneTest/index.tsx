@@ -5,13 +5,14 @@ import { Box, IconButton, Img, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import MoreOptionTest from "./MoreOptionTest";
 
-function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint, idTest }: {
+function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint, idTest, isTeacher }: {
     timeStart: string;
     timeEnd: string;
     nameTest: string;
     numberQuestion: number;
     maxPoint: number;
-    idTest: string
+    idTest: string;
+    isTeacher?: boolean
 }) {
     const router = useRouter();
 
@@ -40,12 +41,12 @@ function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint, idTes
         })
     }
     return (
-        <Box _hover={{ animation: "250ms ease 0ms 1 normal none running iqEhOR" }}
+        <Box _hover={{ transform: "scale(1.04)", boxShadow: "lg" }}
             border={"2px solid rgb(255, 255, 255)"}
             borderRadius={"4px"} mt={"1.5rem"}
             boxShadow={"rgba(0, 0, 0, 0.15) 0px 2px 4px 0px"}
             display={"flex"}>
-            <Img src="https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2020/8/21/829850/Bat-Cuoi-Truoc-Nhung-07.jpg"
+            <Img src="https://assets-cdn.kahoot.it/builder/v2/assets/teach_stud_default-ef51b1e5.jpg"
                 objectFit={"cover"}
                 h={"120px"}
                 w={"176px"}
@@ -70,17 +71,19 @@ function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint, idTes
                     </Box>
                 </Box>
             </Box>
-            <Box mt={"1rem"}>
-                <IconButton
-                    aria-label="More server options"
-                    icon={<EditIcon boxSize={"24px"} />}
-                    variant="solid"
-                    w="fit-content"
-                    bg={"none"}
-                    onClick={editTest}
-                />
-                <MoreOptionTest />
-            </Box>
+            {isTeacher && (
+                <Box mt={"1rem"}>
+                    <IconButton
+                        aria-label="More server options"
+                        icon={<EditIcon boxSize={"24px"} />}
+                        variant="solid"
+                        w="fit-content"
+                        bg={"none"}
+                        onClick={editTest}
+                    />
+                    <MoreOptionTest />
+                </Box>
+            )}
 
         </Box>
     );
