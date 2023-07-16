@@ -27,7 +27,7 @@ function PanelQuestions() {
             bg="rgb(255, 255, 255)"
             boxShadow={"rgba(0, 0, 0, 0.15) 0px 2px 4px 0px"}
         >
-            {arrQuestion.map((item, index: number) => (
+            {arrQuestion && arrQuestion.map((item, index: number) => (
                 <PanelReview key={item.id} deleteQuestion={deleteQuestion} item={item} index={index} selectId={item => setQuizSelect(item.id)}
                     isSelect={item.id === quizSelect} />
             ))}

@@ -11,13 +11,18 @@ export interface QuestionData {
         answerB?: string
         answerC?: string
         answerD?: string
+        idA?: string
+        idB?: string
+        idC?: string
+        idD?: string
     }
 }
 
 type QuestionItem = {
     id: string;
     content: string;
-    data?: QuestionData
+    data?: QuestionData;
+
 }
 
 const initQuiz = {
@@ -27,10 +32,18 @@ const initQuiz = {
 
 const initData: {
     quiz: QuestionItem[],
-    quizSelected: QuestionItem['id']
+    quizSelected: QuestionItem['id'],
+    settings?: {
+        nameTest?: string;
+        desc?: string;
+        maxPoint?: number;
+        timeStart?: any;
+        timeEnd?: any;
+        info?: any;
+    }
 } = {
     quiz: [initQuiz],
-    quizSelected: initQuiz.id
+    quizSelected: initQuiz.id,
 };
 
 //   export type AuthTabsType = keyof typeof initData;
@@ -69,12 +82,14 @@ export const useHandleArrQuestion = () => {
         }))
     }
 
+
+
     return {
         arrQuestion: quiz.quiz,
         addQuestion,
         deleteQuestion,
         quizSelect,
-        setQuizSelect
+        setQuizSelect,
     }
 }
 
@@ -84,56 +99,56 @@ export const useHandleAnwser = () => {
         if (quiz.quizSelected === undefined || quiz.quizSelected === "") {
             console.error('quizSelected undefined')
         }
-        return quiz.quiz.find(item => item.id === quiz.quizSelected)?.data?.anwser?.answerA
+        return quiz.quiz?.find(item => item.id === quiz.quizSelected)?.data?.anwser?.answerA
     }, [quiz.quiz, quiz.quizSelected])
 
     const answerB = React.useMemo(() => {
         if (quiz.quizSelected === undefined || quiz.quizSelected === "") {
             console.error('quizSelected undefined')
         }
-        return quiz.quiz.find(item => item.id === quiz.quizSelected)?.data?.anwser?.answerB
+        return quiz.quiz?.find(item => item.id === quiz.quizSelected)?.data?.anwser?.answerB
     }, [quiz.quiz, quiz.quizSelected])
 
     const answerC = React.useMemo(() => {
         if (quiz.quizSelected === undefined || quiz.quizSelected === "") {
             console.error('quizSelected undefined')
         }
-        return quiz.quiz.find(item => item.id === quiz.quizSelected)?.data?.anwser?.answerC
+        return quiz.quiz?.find(item => item.id === quiz.quizSelected)?.data?.anwser?.answerC
     }, [quiz.quiz, quiz.quizSelected])
 
     const answerD = React.useMemo(() => {
         if (quiz.quizSelected === undefined || quiz.quizSelected === "") {
             console.error('quizSelected undefined')
         }
-        return quiz.quiz.find(item => item.id === quiz.quizSelected)?.data?.anwser?.answerD
+        return quiz.quiz?.find(item => item.id === quiz.quizSelected)?.data?.anwser?.answerD
     }, [quiz.quiz, quiz.quizSelected])
 
     const correctA = React.useMemo(() => {
         if (quiz.quizSelected === undefined || quiz.quizSelected === "") {
             console.error('quizSelected undefined')
         }
-        return quiz.quiz.find(item => item.id === quiz.quizSelected)?.data?.anwser?.correctA
+        return quiz.quiz?.find(item => item.id === quiz.quizSelected)?.data?.anwser?.correctA
     }, [quiz.quiz, quiz.quizSelected])
 
     const correctB = React.useMemo(() => {
         if (quiz.quizSelected === undefined || quiz.quizSelected === "") {
             console.error('quizSelected undefined')
         }
-        return quiz.quiz.find(item => item.id === quiz.quizSelected)?.data?.anwser?.correctB
+        return quiz.quiz?.find(item => item.id === quiz.quizSelected)?.data?.anwser?.correctB
     }, [quiz.quiz, quiz.quizSelected])
 
     const correctC = React.useMemo(() => {
         if (quiz.quizSelected === undefined || quiz.quizSelected === "") {
             console.error('quizSelected undefined')
         }
-        return quiz.quiz.find(item => item.id === quiz.quizSelected)?.data?.anwser?.correctC
+        return quiz.quiz?.find(item => item.id === quiz.quizSelected)?.data?.anwser?.correctC
     }, [quiz.quiz, quiz.quizSelected])
 
     const correctD = React.useMemo(() => {
         if (quiz.quizSelected === undefined || quiz.quizSelected === "") {
             console.error('quizSelected undefined')
         }
-        return quiz.quiz.find(item => item.id === quiz.quizSelected)?.data?.anwser?.correctD
+        return quiz.quiz?.find(item => item.id === quiz.quizSelected)?.data?.anwser?.correctD
     }, [quiz.quiz, quiz.quizSelected])
 
     const setAnswerA = (answerA: string) => {
@@ -375,7 +390,7 @@ export const useHandleQuestion = () => {
             console.error('quizSelected undefined')
         }
 
-        return quiz.quiz.find(item => item.id === quiz.quizSelected)?.data?.question
+        return quiz.quiz?.find(item => item.id === quiz.quizSelected)?.data?.question
 
 
     }, [quiz.quiz, quiz.quizSelected])
@@ -406,6 +421,83 @@ export const useHandleQuestion = () => {
     return {
         questionData,
         setQuestionData
+    }
+}
+
+export const useSettingsQuestion = () => {
+    const { state: quiz, update: setQuiz } = useContext(TestContext)
+    const setNameTest = (nameTest: string) => {
+        setQuiz(pre => ({
+            ...pre,
+            settings: {
+                ...pre.settings,
+                nameTest
+            }
+        }))
+    }
+    const setDesc = (desc: string) => {
+        setQuiz(pre => ({
+            ...pre,
+            settings: {
+                ...pre.settings,
+                desc
+            }
+        }))
+    }
+    const setTimeStart = (timeStart: string) => {
+        setQuiz(pre => ({
+            ...pre,
+            settings: {
+                ...pre.settings,
+                timeStart
+            }
+        }))
+    }
+    const setTimeEnd = (timeEnd: string) => {
+        setQuiz(pre => ({
+            ...pre,
+            settings: {
+                ...pre.settings,
+                timeEnd
+            }
+        }))
+    }
+    const setMaxPoint = (maxPoint: number) => {
+        setQuiz(pre => ({
+            ...pre,
+            settings: {
+                ...pre.settings,
+                maxPoint
+            }
+        }))
+    }
+    const setInfo = (info: any) => {
+        setQuiz(pre => ({
+            ...pre,
+            settings: {
+                ...pre.settings,
+                info
+            }
+        }))
+    }
+    const setQuizFn = (quiz: QuestionItem[]) => {
+        setQuiz(pre => ({
+            ...pre,
+            quiz
+        }))
+    }
+
+
+    return {
+        ...quiz.settings,
+        setNameTest,
+        setDesc,
+        setTimeStart,
+        setTimeEnd,
+        setMaxPoint,
+        setInfo,
+        setQuizFn
+
     }
 }
 

@@ -1,19 +1,43 @@
 
+import { takeTest } from "@/common/service/taketest";
 import { EditIcon } from "@chakra-ui/icons";
 import { Box, IconButton, Img, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import MoreOptionTest from "./MoreOptionTest";
 
-function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint }: {
+function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint, idTest }: {
     timeStart: string;
     timeEnd: string;
     nameTest: string;
     numberQuestion: number;
     maxPoint: number;
+    idTest: string
 }) {
+    const router = useRouter();
+
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
 
         return `${date.getHours()}:${date.getMinutes()}, ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    }
+    const editTest = () => {
+        router.push({
+            pathname: "/createexam",
+            query: {
+                id: idTest,
+                edit: true,
+                idClass: router.query.id
+            }
+        })
+    }
+    const handleTakeTest = async () => {
+        router.push({
+            pathname: "/createexam",
+            query: {
+                id: idTest,
+                doTest: true
+            }
+        })
     }
     return (
         <Box _hover={{ animation: "250ms ease 0ms 1 normal none running iqEhOR" }}
@@ -27,7 +51,7 @@ function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint }: {
                 w={"176px"}
                 px={"1rem"}
             />
-            <Box w={"full"}>
+            <Box w={"full"} onClick={handleTakeTest} cursor="pointer">
                 <Text fontWeight={"bold"} fontSize={"1rem"} textAlign={"center"}>{nameTest}</Text>
                 <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} mr={"1.5rem"}>
                     <Box>
@@ -53,6 +77,7 @@ function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint }: {
                     variant="solid"
                     w="fit-content"
                     bg={"none"}
+                    onClick={editTest}
                 />
                 <MoreOptionTest />
             </Box>

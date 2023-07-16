@@ -27,7 +27,6 @@ function Exam() {
     }, [router.query.id])
 
     const goToCreateExam = () => {
-        console.log('router.query', router.query)
         router.push({
             pathname: "/createexam",
             query: {
@@ -56,7 +55,7 @@ function Exam() {
             </Box>
             {test && test.map((item: any) => (
                 <OneTest key={item.id} nameTest={item.name} timeStart={item.startTime} timeEnd={item.endTime}
-                    maxPoint={item.maxPoints} numberQuestion={item.questions.length} />
+                    maxPoint={item.maxPoints} numberQuestion={item.questions.length} idTest={item.id} />
             ))}
             <Box w={"205px"} h={"115px"} mx="auto">
                 <ExamIcon />

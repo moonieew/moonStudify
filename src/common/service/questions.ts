@@ -12,8 +12,24 @@ interface createQuestionField {
 export const createQuestion = (params: createQuestionField) : Promise<any> => {
     return axiosClient.post('/question/', {
         type: "single",
-        maxPoints: 1,
+        maxPoints: 2,
         image: "",
         ... params
+    })
+}
+
+interface updateQuestionField {
+    questionId: string
+    type?: string
+    content: string
+    maxPoints?: number
+    answers: any
+}
+
+export const updateQuestion = (params: updateQuestionField): Promise<any> => {
+    return axiosClient.put('/question/', {
+        type: "single",
+        maxPoints: 2,
+        ...params
     })
 }
