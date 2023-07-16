@@ -2,9 +2,30 @@ import { ExamIcon } from "@/components/Icon";
 import { Box, Button, Container, Img, Text } from "@chakra-ui/react";
 import OneTest from "./OneTest";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { getClassById } from "@/common/service/classService";
+import { getTestByClassId } from "@/common/service/textService";
 
 function Exam() {
     const router = useRouter();
+    const [data, setData] = useState<any>()
+    const [test, setTest] = useState<any>([])
+
+    const getInfoClass = async () => {
+        const dataClass = await getClassById(router.query.id as string)
+        setData(dataClass)
+    }
+
+    const getTest = async () => {
+        const dataTest = await getTestByClassId(router.query.id as string)
+        setTest(dataTest.tests)
+    }
+
+    useEffect(() => {
+        // getInfoClass()
+        getTest()
+    }, [router.query.id])
+
     const goToCreateExam = () => {
         router.push("/createexam")
     }
@@ -27,7 +48,10 @@ function Exam() {
                 <Img w={"50px"} h={"30px"} src="https://assets-cdn.kahoot.it/builder/v2/assets/quiz-illustration-e68cb765.svg" />
                 <Text color={"#fff"}>Tạo bài kiểm tra</Text>
             </Box>
-            <OneTest />
+            {test && test.map((item: any) => (
+                <OneTest key={item.id} nameTest={item.name} timeStart={item.startTime} timeEnd={item.endTime}
+                    maxPoint={item.maxPoints} numberQuestion={item.questions.length} />
+            ))}
             <Box w={"205px"} h={"115px"} mx="auto">
                 <ExamIcon />
                 <Text mx={"auto"} fontSize={"14px"} color={"#3c4043"} fontWeight={500}>Đây là nơi giao bài kiểm tra</Text>

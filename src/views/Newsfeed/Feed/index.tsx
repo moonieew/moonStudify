@@ -46,7 +46,6 @@ function Feed({ idNewsfeed }: {
 
     useEffect(() => {
         getInfoNew(idNewsfeed).then((newsfeedArr) => {
-            console.log("first", newsfeedArr)
             setNews(newsfeedArr.reverse());
         });
     }, [idNewsfeed, isRefresh])

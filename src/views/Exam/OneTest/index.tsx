@@ -3,11 +3,22 @@ import { EditIcon } from "@chakra-ui/icons";
 import { Box, IconButton, Img, Text } from "@chakra-ui/react";
 import MoreOptionTest from "./MoreOptionTest";
 
-function OneTest() {
+function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint }: {
+    timeStart: string;
+    timeEnd: string;
+    nameTest: string;
+    numberQuestion: number;
+    maxPoint: number;
+}) {
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+
+        return `${date.getHours()}:${date.getMinutes()}, ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    }
     return (
         <Box _hover={{ animation: "250ms ease 0ms 1 normal none running iqEhOR" }}
             border={"2px solid rgb(255, 255, 255)"}
-            borderRadius={"4px"} mt={"1rem"}
+            borderRadius={"4px"} mt={"1.5rem"}
             boxShadow={"rgba(0, 0, 0, 0.15) 0px 2px 4px 0px"}
             display={"flex"}>
             <Img src="https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2020/8/21/829850/Bat-Cuoi-Truoc-Nhung-07.jpg"
@@ -17,21 +28,21 @@ function OneTest() {
                 px={"1rem"}
             />
             <Box w={"full"}>
-                <Text fontWeight={"bold"} fontSize={"1rem"} textAlign={"center"}>Tên bài kiểm tra </Text>
+                <Text fontWeight={"bold"} fontSize={"1rem"} textAlign={"center"}>{nameTest}</Text>
                 <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} mr={"1.5rem"}>
                     <Box>
                         <Text fontSize={"14px"} fontWeight={"500"}>Thời gian bắt đầu</Text>
-                        <Text color={"rgba(0,0,0,.549)"} fontSize={"13px"}>10:20 ngày 12-02-2023</Text>
+                        <Text color={"rgba(0,0,0,.549)"} fontSize={"13px"}>{formatDate(timeStart)}</Text>
                         <Text fontSize={"14px"} fontWeight={"500"}>Thời gian kết thúc</Text>
-                        <Text color={"rgba(0,0,0,.549)"} fontSize={"13px"}>10:20 ngày 12-02-2023</Text>
+                        <Text color={"rgba(0,0,0,.549)"} fontSize={"13px"}>{formatDate(timeEnd)}</Text>
                     </Box>
                     <Box textAlign={"center"}>
-                        <Text fontSize={"14px"} fontWeight={"500"}>Thời lượng làm bài</Text>
-                        <Text color={"rgba(0,0,0,.549)"} fontSize={"13px"}>1giờ</Text>
+                        <Text fontSize={"14px"} fontWeight={"500"}>Điểm tối đa</Text>
+                        <Text color={"rgba(0,0,0,.549)"} fontSize={"13px"}>{maxPoint}</Text>
                     </Box>
                     <Box textAlign={"center"}>
                         <Text fontSize={"14px"} fontWeight={"500"}>Số câu hỏi</Text>
-                        <Text color={"rgba(0,0,0,.549)"} fontSize={"13px"}>10</Text>
+                        <Text color={"rgba(0,0,0,.549)"} fontSize={"13px"}>{numberQuestion}</Text>
                     </Box>
                 </Box>
             </Box>
