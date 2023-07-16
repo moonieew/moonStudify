@@ -1,8 +1,4 @@
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { Avatar, Box, Button, HStack, Text, useColorMode, VStack, Img, Menu, MenuButton, MenuList, MenuItem, MenuDivider, Modal, ModalOverlay, ModalContent, Center, Flex, useToast } from "@chakra-ui/react";
-import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client';
-import { Row, Col } from 'reactstrap';
-import Loading from "@/components/Loading";
+import { Avatar, Box, Button, HStack, Text, useColorMode, VStack, Menu, MenuButton, MenuList, MenuItem, MenuDivider, Modal, ModalOverlay, ModalContent, Center, Flex, useToast } from "@chakra-ui/react";
 import { FiChevronDown } from "react-icons/fi";
 import { useState } from "react";
 import { logOut } from "@/common/service/user";
@@ -13,8 +9,6 @@ function Profile({ info, setInfoUser }: {
     info?: any
     setInfoUser?: () => void
 }) {
-    const { colorMode, toggleColorMode } = useColorMode();
-    // const { user, isLoading } = useUser();
     const [isOpenLogout, setIsOpenLogout] = useState(false)
     const toast = useToast();
     const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +26,7 @@ function Profile({ info, setInfoUser }: {
         const data = await logOut()
         setIsOpenLogout(false)
         removeCookie('token')
-        setInfoUser
+        setInfoUser && setInfoUser()
         toast({
             title: "Bạn đã đăng xuất thành công!",
             status: "success",
@@ -101,26 +95,6 @@ function Profile({ info, setInfoUser }: {
                     </Box>
                 </ModalContent>
             </Modal>
-
-            {/* {user && (
-                <HStack>
-                    <Button onClick={toggleColorMode} bg="none">
-                        {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-                    </Button>
-                    <Avatar
-                        size={'sm'}
-                        src={`${user.picture}`}
-                        className="rounded-circle img-fluid profile-picture mb-3 mb-md-0"
-                    />
-                    <VStack
-                        display={{ base: 'none', md: 'flex' }}
-                        alignItems="flex-start"
-                        spacing="1px"
-                        ml="2">
-                        <Text fontSize="sm">{user.name}</Text>
-                    </VStack>
-                </HStack>
-            )} */}
         </>
     );
 }

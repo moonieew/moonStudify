@@ -1,5 +1,5 @@
 import { deleteClass, getClass, joinClass, leaveClass } from "@/common/service/classService";
-import { Avatar, Box, Button, Flex, Grid, GridItem, IconButton, Image, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverTrigger, Stack, Text, useToast } from "@chakra-ui/react";
+import { Avatar, Box, Button, Center, Flex, Grid, GridItem, IconButton, Image, Modal, ModalContent, ModalOverlay, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverTrigger, Skeleton, Stack, Text, useDisclosure, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -23,15 +23,20 @@ const Class = () => {
     const [idClass, setIdClass] = useState("")
     const toast = useToast();
     const [isLoading, setIsLoading] = useState(false)
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [isRefresh, setIsRefresh] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const dataClass = async () => {
+        setLoading(true)
         const res: any = await getClass()
         setData(res)
+        setLoading(false)
     }
     useEffect(() => {
         // Gọi API khi component được mount
         dataClass();
-    }, []);
+    }, [isRefresh]);
 
     const getRandomImage = () => {
         const randomIndex = Math.floor(Math.random() * imageArray.length);
@@ -48,6 +53,7 @@ const Class = () => {
                 duration: 5000,
                 isClosable: true
             });
+            setIsRefresh(pre => !pre)
         } else {
             toast({
                 title: "Đã có lỗi xảy ra!",
@@ -69,6 +75,7 @@ const Class = () => {
                 duration: 5000,
                 isClosable: true
             });
+            setIsRefresh(pre => !pre)
         } else {
             toast({
                 title: "Đã có lỗi xảy ra!",
@@ -90,6 +97,7 @@ const Class = () => {
                 duration: 5000,
                 isClosable: true
             });
+            setIsRefresh(pre => !pre)
         } else {
             toast({
                 title: "Đã có lỗi xảy ra!",
@@ -101,8 +109,56 @@ const Class = () => {
         setIsLoading(false)
     }
 
+    const goClassDetail = (id: string, joined: boolean) => {
+        if (joined) {
+            router.push(`/class/${id}`)
+        } else {
+            setIdClass(id)
+            onOpen()
+        }
+    }
+
+    const joinClassFromModel = async () => {
+        setIsLoading(true)
+        const data = await joinClass({ classId: idClass })
+        if (data) {
+            toast({
+                title: "Bạn đã tham gia lớp học thành công!",
+                status: "success",
+                duration: 5000,
+                isClosable: true
+            });
+            router.push(`/class/${idClass}`)
+        } else {
+            toast({
+                title: "Đã có lỗi xảy ra!",
+                status: "error",
+                duration: 5000,
+                isClosable: true
+            });
+        }
+        onClose()
+        setIsLoading(false)
+    }
+
     return (
         <>
+            {loading && (
+                <Grid templateColumns="repeat(4, 1fr)">
+                    <GridItem>
+                        <Skeleton w={"302px"} h="296px" border="0.0625rem solid #dadce0" borderRadius={"0.5rem"} m="1rem" />
+                    </GridItem>
+                    <GridItem>
+                        <Skeleton w={"302px"} h="296px" border="0.0625rem solid #dadce0" borderRadius={"0.5rem"} m="1rem" />
+                    </GridItem>
+                    <GridItem>
+                        <Skeleton w={"302px"} h="296px" border="0.0625rem solid #dadce0" borderRadius={"0.5rem"} m="1rem" />
+                    </GridItem>
+                    <GridItem>
+                        <Skeleton w={"302px"} h="296px" border="0.0625rem solid #dadce0" borderRadius={"0.5rem"} m="1rem" />
+                    </GridItem>
+                </Grid>
+            )}
             <Grid templateColumns="repeat(4, 1fr)">
                 {
                     data && data.map((item: any) => (
@@ -192,7 +248,7 @@ const Class = () => {
                                     )}
                                 </Box>
                                 {item.isTeacher == false ? (
-                                    <Box h={"137px"} display="flex" justifyContent={"end"} onClick={() => router.push(`/class/${item.class._id}`)}>
+                                    <Box h={"137px"} display="flex" justifyContent={"end"} onClick={() => goClassDetail(item.class._id, item.isJoined)}>
                                         <Box h="75px" w="75px" position="absolute" m={"-42px 16px 0"}>
                                             <Avatar size={"lg"} w="100%" h={"100%"} name={item.class.teacher.fullname} src='https://bit.ly/broken-link' />
                                         </Box>
@@ -209,7 +265,32 @@ const Class = () => {
 
 
             </Grid>
-
+            <Modal
+                isOpen={isOpen} onClose={onClose}
+                size="sm"
+            >
+                <ModalOverlay />
+                <ModalContent>
+                    <Box p={"24px"}>
+                        <Center mb="12px">
+                            <Text>
+                                Bạn chưa tham gia lớp học. Bạn có muốn tham gia không?
+                            </Text>
+                        </Center>
+                        <Flex w="full">
+                            <Button flex="1" mr="10px" outline="1px solid #919191" bg={"#69b1ff"} isLoading={isLoading}
+                                _hover={{ bg: "#0958d9" }} onClick={joinClassFromModel}>
+                                <Text color={"black"}>
+                                    Tham gia ngay
+                                </Text>
+                            </Button>
+                            <Button flex="1" variant="outline" onClick={onClose}>
+                                Không
+                            </Button>
+                        </Flex>
+                    </Box>
+                </ModalContent>
+            </Modal>
         </>
     );
 }

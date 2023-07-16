@@ -5,8 +5,7 @@ function ClassCode() {
         <FormControl variant="floating" id="first-name" isRequired isInvalid>
             <Input placeholder=" " />
             <FormLabel>Mã lớp</FormLabel>
-            {/* <FormHelperText>Keep it very short and sweet!</FormHelperText> */}
-            <FormErrorMessage fontSize={"12px"}>Mã lớp học có 5-7 ký tự gồm cả chữ cái và số, không có dấu cách hoặc ký hiệu</FormErrorMessage>
+            <FormErrorMessage fontSize={"12px"}>Mã lớp học có các ký tự gồm cả chữ cái và số, không có dấu cách hoặc ký hiệu</FormErrorMessage>
         </FormControl>
     );
 }
