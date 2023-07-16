@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import axiosClient from "../api/request"
 
 export const getClass = (): Promise<any> => {
@@ -79,5 +79,16 @@ export const getClassById = (classId: string) : Promise<any> => {
   })
   .catch((error: AxiosError) => {});
 }
+
+interface removeStudentField {
+  studentId: string
+  classId: string
+}
+
+// export const removeStudent = (params: removeStudentField): Promise<any> => {
+//   return axios.delete('https://be-moon-studify.vercel.app/api/class/remove-student', {
+//     ...params
+//   })
+// }
 
 

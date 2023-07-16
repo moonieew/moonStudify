@@ -13,7 +13,13 @@ import {
 import { BsThreeDotsVertical, BsChatSquareQuote } from 'react-icons/bs';
 import { RiShutDownLine, RiRestartLine, RiFileShredLine } from 'react-icons/ri';
 
-export default function MoreOptionMember() {
+export default function MoreOptionMember({ idClass, idStudent }: {
+    idClass: string
+    idStudent: string
+}) {
+    const handleRemove = async () => {
+        // const res = await 
+    }
     return (
         /**
          * You may move the Popover outside Flex.
@@ -46,7 +52,9 @@ export default function MoreOptionMember() {
                                 variant="ghost"
                                 justifyContent="space-between"
                                 fontWeight="normal"
-                                fontSize="sm">
+                                fontSize="sm"
+                                onClick={handleRemove}
+                            >
                                 Xoá
                             </Button>
                             <Button
