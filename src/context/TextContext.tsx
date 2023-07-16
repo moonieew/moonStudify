@@ -386,10 +386,8 @@ export const useHandleQuestion = () => {
             console.error('quizSelected undefined')
         }
         const quizTemp = [...quiz.quiz]
-        console.log('question22', question);
 
         const index = quizTemp.findIndex(item => item.id === quizSelected)
-        console.log('index123', index);
 
         if (index !== -1) {
             quizTemp[index] = {

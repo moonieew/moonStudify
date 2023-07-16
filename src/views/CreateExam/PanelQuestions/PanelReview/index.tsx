@@ -29,7 +29,7 @@ function PanelReview({ deleteQuestion, item, index, selectId, isSelect }: {
                     <Box border={isSelect ? "1px solid #0958d9" : "none"} cursor={"grab"} h="93px" w={"calc(100% - 26px)"}
                         bg={isSelect ? "rgb(255, 255, 255)" : "#f5f5f5"} borderRadius={"0.25rem"}
                         zIndex="1" boxShadow={"transparent 0px 0px 0px 3px"} maxW="calc(100% - 26px)" ml={"0"} p="0.25rem 0.5rem"
-                        color={"rgb(110, 110, 110)"} textAlign="center" fontSize={"0.75rem"}
+                        color={"rgb(110, 110, 110)"} textAlign="center" fontSize={"0.75rem"} display="flex" alignItems={"center"} justifyContent="center"
                     >
                         {item.data?.question}
                     </Box>

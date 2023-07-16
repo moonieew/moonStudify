@@ -20,7 +20,6 @@ interface menuClassProps {
 
 export const MenuButton = (props: menuClassProps) => {
     const { isTeacher, idClass } = props;
-    console.log("isteacher", isTeacher)
     return (
         <Flex justifyContent="center">
             <Popover placement="bottom" isLazy>

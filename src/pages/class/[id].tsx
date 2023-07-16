@@ -9,7 +9,7 @@ import { Box, Button, Container, Flex, HStack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 function NewsfeedPage() {
-    const [step, setStep] = useState<number>(2)
+    const [step, setStep] = useState<number>(1)
     const [info, setInfo] = useState<any>();
 
     const infoUser = async () => {

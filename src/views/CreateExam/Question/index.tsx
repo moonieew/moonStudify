@@ -9,7 +9,6 @@ import Answer from "./Answer";
 function Question() {
     // const [question, setQuestion] = useState("")
     const { questionData: question, setQuestionData: setQuestion } = useHandleQuestion()
-    console.log('question123', question);
 
     // useEffect(() => {
     //     if (question !== questionData) {

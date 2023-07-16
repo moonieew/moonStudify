@@ -8,3 +8,43 @@ export const getTestByClassId = (id: string) : Promise<any> => {
       })
       .catch((error: AxiosError) => {});
 }
+
+interface createTestField {
+    classId: string
+    name: string
+    creatorId: string
+    description: string
+    pin?: string
+    startTime: string
+    endTime: string
+    numberofQuestions: number
+    viewPoint?: string
+    viewAnswer?: string
+    attemptsAllowed?: number
+    maxPoints: number
+    typeofPoint?: string
+    maxTimes?: number
+    tracking?: boolean
+    shuffle?: boolean
+    status?: string
+    toPass?: number
+    questions: any
+    slug?: number 
+}
+
+export const createTest = (params: createTestField) : Promise<any> => {
+    return axiosClient.post('/test/', {
+        pin: "",
+        viewPoint: "done",
+        viewAnswer: "done",
+        attemptsAllowed: 4,
+        typeofPoint: "max",
+        maxTimes: "30",
+        tracking: false,
+        shuffle: false,
+        status: "public",
+        toPass: 5,
+        slug: 0,
+        ...params
+    })
+}

@@ -27,7 +27,13 @@ function Exam() {
     }, [router.query.id])
 
     const goToCreateExam = () => {
-        router.push("/createexam")
+        console.log('router.query', router.query)
+        router.push({
+            pathname: "/createexam",
+            query: {
+                id: router.query.id
+            }
+        })
     }
 
     return (
