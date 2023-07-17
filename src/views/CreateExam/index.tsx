@@ -171,6 +171,12 @@ function CreateExamPage() {
                     answerSheet: answerSheet,
                     takeTestId: takeTestId
                 })
+                router.push({
+                    pathname: "/resulttest",
+                    query: {
+                        id: takeTestId
+                    }
+                })
             } catch (err) {
                 console.error('Error doing question:', err)
             }

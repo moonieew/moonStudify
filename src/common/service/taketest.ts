@@ -1,3 +1,4 @@
+import { AxiosError, AxiosResponse } from "axios"
 import axiosClient from "../api/request"
 
 // interface checkTestField {
@@ -34,4 +35,24 @@ export const submitTest = (params: submitTestField): Promise<any> => {
     return axiosClient.post('/take-test/submit-test', {
         ...params
     })
+}
+
+export const resultTakeTest = (testId: string) : Promise<any> => {
+    return axiosClient.get(`/take-test/result-take-test?id=${testId}`)
+    .then((response: AxiosResponse) => {
+        return response;
+      })
+      .catch((error: AxiosError) => {
+        return;
+      });
+}
+
+export const reviewTest = (testId: string): Promise<any> => {
+    return axiosClient.get(`/take-test/preview-test?id=${testId}`)
+    .then((response: AxiosResponse) => {
+        return response;
+      })
+      .catch((error: AxiosError) => {
+        return;
+      });
 }
