@@ -19,9 +19,9 @@ function Question() {
         <Box position={"relative"} display="flex" flexDirection="column" flex={"1 1 calc(100% - (2 * clamp(16px, 2vmin, 48px)))"}
             p="48px clamp(16px, 2vmin, 48px)" maxH={"calc(100% - (2 * clamp(16px, 2vmin, 48px)))"} ml="12rem"
         >
-            <Box w={"100%"} >
+            <Box w={"100%"} mb="30px" >
                 <Box w={"100%"} pb="4px" borderRadius={"0.25rem"} boxShadow="rgba(0, 0, 0, 0.15) 0px -4px 0px 0px inset">
-                    <Input placeholder='Câu hỏi ...' value={question ?? ''} onChange={e => setQuestion(e.target.value)} />
+                    <Input placeholder='Câu hỏi ...' value={question ?? ''} onChange={e => setQuestion(e.target.value)} h="100px" />
                 </Box>
             </Box>
             {/* <Box p={"1.375rem 0"}>

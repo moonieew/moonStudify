@@ -49,23 +49,23 @@ function Exam() {
                     <Skeleton h={"120px"} my="1rem" />
                 </Box>
             )}
-            {data && data.isTeacher && (
-                <Box
-                    onClick={goToCreateExam}
-                    as={"button"}
-                    mt={"1rem"}
-                    display={"flex"}
-                    bg={"rgb(19, 104, 206)"}
-                    p={"0.5rem"}
-                    borderRadius={"4px"}
-                    boxShadow={"rgba(0, 0, 0, 0.25) 0px -2px inset"}
-                    minH={"30px"}
-                    _hover={{ minH: "29px", bg: "rgb(18, 96, 190)", boxShadow: "rgba(0, 0, 0, 0.25) 0px -1px inset" }}
-                >
-                    <Img w={"50px"} h={"30px"} src="https://assets-cdn.kahoot.it/builder/v2/assets/quiz-illustration-e68cb765.svg" />
-                    <Text color={"#fff"}>Tạo bài kiểm tra</Text>
-                </Box>
-            )}
+            {/* {data && data.isTeacher && ( */}
+            <Box
+                onClick={goToCreateExam}
+                as={"button"}
+                mt={"1rem"}
+                display={"flex"}
+                bg={"rgb(19, 104, 206)"}
+                p={"0.5rem"}
+                borderRadius={"4px"}
+                boxShadow={"rgba(0, 0, 0, 0.25) 0px -2px inset"}
+                minH={"30px"}
+                _hover={{ minH: "29px", bg: "rgb(18, 96, 190)", boxShadow: "rgba(0, 0, 0, 0.25) 0px -1px inset" }}
+            >
+                <Img w={"50px"} h={"30px"} src="https://assets-cdn.kahoot.it/builder/v2/assets/quiz-illustration-e68cb765.svg" />
+                <Text color={"#fff"}>Tạo bài kiểm tra</Text>
+            </Box>
+            {/* )} */}
             {test && test.map((item: any) => (
                 <OneTest key={item.id} nameTest={item.name} timeStart={item.startTime} timeEnd={item.endTime}
                     maxPoint={item.maxPoints} numberQuestion={item.questions.length} idTest={item.id} isTeacher={data.isTeacher} />

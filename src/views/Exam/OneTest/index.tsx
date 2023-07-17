@@ -71,19 +71,19 @@ function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint, idTes
                     </Box>
                 </Box>
             </Box>
-            {isTeacher && (
-                <Box mt={"1rem"}>
-                    <IconButton
-                        aria-label="More server options"
-                        icon={<EditIcon boxSize={"24px"} />}
-                        variant="solid"
-                        w="fit-content"
-                        bg={"none"}
-                        onClick={editTest}
-                    />
-                    <MoreOptionTest />
-                </Box>
-            )}
+            {/* {isTeacher && ( */}
+            <Box mt={"1rem"}>
+                <IconButton
+                    aria-label="More server options"
+                    icon={<EditIcon boxSize={"24px"} />}
+                    variant="solid"
+                    w="fit-content"
+                    bg={"none"}
+                    onClick={editTest}
+                />
+                <MoreOptionTest />
+            </Box>
+            {/* )} */}
 
         </Box>
     );
