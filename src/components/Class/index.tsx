@@ -30,7 +30,7 @@ const Class = () => {
     const dataClass = async () => {
         setLoading(true)
         const res: any = await getClass()
-        setData(res)
+        setData(res.reverse())
         setLoading(false)
     }
     useEffect(() => {

@@ -211,6 +211,10 @@ function CreateExamPage() {
 
     }
 
+    const goBack = () => {
+        router.back();
+    };
+
     return (
 
         <>
@@ -253,11 +257,13 @@ function CreateExamPage() {
                         minW={"42px"}
                         minH={"42px"}
                         p={"0 16px 4px"}
+                        onClick={goBack}
                     >
                         Huỷ
                     </Button>
                     <Button
-                        bg={"rgb(204, 204, 204)"}
+                        bg={"#4096ff"}
+                        _hover={{ bg: "#0958d9" }}
                         boxShadow={"rgba(0, 0, 0, 0.15) 0px 2px 4px 0px"}
                         color={"rgb(255, 255, 255)"}
                         borderRadius={"4px"}

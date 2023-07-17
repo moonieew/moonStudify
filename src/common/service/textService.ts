@@ -97,3 +97,13 @@ export const updateTest = (params: updateTestField): Promise<any> =>{
         ...params,
     })
 }
+
+export const deleteTest = (testId: string) : Promise<any> => {
+    return axiosClient.delete(`/test/?testId=${testId}`)
+    .then((response: AxiosResponse) => {
+        return response;
+      })
+      .catch((error: AxiosError) => {
+        return;
+      });
+}

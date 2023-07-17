@@ -11,6 +11,8 @@ function Exam() {
     const [data, setData] = useState<any>()
     const [test, setTest] = useState<any>([])
     const [loading, setLoading] = useState(false)
+    const [idUser, setIdUser] = useState<string>("")
+    const [isRefresh, setIsRefresh] = useState(false)
 
     const getInfoClass = async () => {
         const dataClass = await getClassById(router.query.id as string)
@@ -27,7 +29,8 @@ function Exam() {
     useEffect(() => {
         getInfoClass()
         getTest()
-    }, [router.query.id])
+        setIdUser(localStorage.getItem("idUser") || "")
+    }, [router.query.id, isRefresh])
 
     const goToCreateExam = () => {
         router.push({
@@ -36,6 +39,9 @@ function Exam() {
                 id: router.query.id
             }
         })
+    }
+    const onRefresh = () => {
+        setIsRefresh(pre => !pre)
     }
 
     return (
@@ -47,28 +53,30 @@ function Exam() {
                     <Skeleton h={"120px"} my="1rem" />
                     <Skeleton h={"120px"} my="1rem" />
                     <Skeleton h={"120px"} my="1rem" />
+                    <Skeleton h={"120px"} my="1rem" />
                 </Box>
             )}
-            {/* {data && data.isTeacher && ( */}
-            <Box
-                onClick={goToCreateExam}
-                as={"button"}
-                mt={"1rem"}
-                display={"flex"}
-                bg={"rgb(19, 104, 206)"}
-                p={"0.5rem"}
-                borderRadius={"4px"}
-                boxShadow={"rgba(0, 0, 0, 0.25) 0px -2px inset"}
-                minH={"30px"}
-                _hover={{ minH: "29px", bg: "rgb(18, 96, 190)", boxShadow: "rgba(0, 0, 0, 0.25) 0px -1px inset" }}
-            >
-                <Img w={"50px"} h={"30px"} src="https://assets-cdn.kahoot.it/builder/v2/assets/quiz-illustration-e68cb765.svg" />
-                <Text color={"#fff"}>Tạo bài kiểm tra</Text>
-            </Box>
-            {/* )} */}
+            {data && idUser && (idUser === data?.teacher) && (
+                <Box
+                    onClick={goToCreateExam}
+                    as={"button"}
+                    mt={"1rem"}
+                    display={"flex"}
+                    bg={"rgb(19, 104, 206)"}
+                    p={"0.5rem"}
+                    borderRadius={"4px"}
+                    boxShadow={"rgba(0, 0, 0, 0.25) 0px -2px inset"}
+                    minH={"30px"}
+                    _hover={{ minH: "29px", bg: "rgb(18, 96, 190)", boxShadow: "rgba(0, 0, 0, 0.25) 0px -1px inset" }}
+                >
+                    <Img w={"50px"} h={"30px"} src="https://assets-cdn.kahoot.it/builder/v2/assets/quiz-illustration-e68cb765.svg" />
+                    <Text color={"#fff"}>Tạo bài kiểm tra</Text>
+                </Box>
+            )}
             {test && test.map((item: any) => (
                 <OneTest key={item.id} nameTest={item.name} timeStart={item.startTime} timeEnd={item.endTime}
-                    maxPoint={item.maxPoints} numberQuestion={item.questions.length} idTest={item.id} isTeacher={data.isTeacher} />
+                    maxPoint={item.maxPoints} numberQuestion={item.questions.length} idTest={item.id} idTeacher={data?.teacher}
+                    refresh={onRefresh} />
             ))}
             <Box w={"205px"} h={"115px"} mx="auto">
                 <ExamIcon />

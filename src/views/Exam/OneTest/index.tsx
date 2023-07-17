@@ -5,16 +5,18 @@ import { Box, IconButton, Img, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import MoreOptionTest from "./MoreOptionTest";
 
-function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint, idTest, isTeacher }: {
+function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint, idTest, idTeacher, refresh }: {
     timeStart: string;
     timeEnd: string;
     nameTest: string;
     numberQuestion: number;
     maxPoint: number;
     idTest: string;
-    isTeacher?: boolean
+    idTeacher?: string
+    refresh: () => void
 }) {
     const router = useRouter();
+    const idUser = localStorage.getItem("idUser") || "";
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -40,6 +42,9 @@ function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint, idTes
             }
         })
     }
+    // const onRefresh = () => {
+    //     window.location.reload()
+    // }
     return (
         <Box _hover={{ transform: "scale(1.04)", boxShadow: "lg" }}
             border={"2px solid rgb(255, 255, 255)"}
@@ -71,19 +76,19 @@ function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint, idTes
                     </Box>
                 </Box>
             </Box>
-            {/* {isTeacher && ( */}
-            <Box mt={"1rem"}>
-                <IconButton
-                    aria-label="More server options"
-                    icon={<EditIcon boxSize={"24px"} />}
-                    variant="solid"
-                    w="fit-content"
-                    bg={"none"}
-                    onClick={editTest}
-                />
-                <MoreOptionTest />
-            </Box>
-            {/* )} */}
+            {(idTeacher == idUser) && (
+                <Box mt={"1rem"}>
+                    <IconButton
+                        aria-label="More server options"
+                        icon={<EditIcon boxSize={"24px"} />}
+                        variant="solid"
+                        w="fit-content"
+                        bg={"none"}
+                        onClick={editTest}
+                    />
+                    <MoreOptionTest idTest={idTest} refresh={refresh} />
+                </Box>
+            )}
 
         </Box>
     );

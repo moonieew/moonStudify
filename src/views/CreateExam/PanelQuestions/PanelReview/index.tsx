@@ -1,6 +1,7 @@
 import { QuestionItem } from "@/context/TextContext";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Box } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 // import { QuestionItem } from "..";
 
@@ -11,6 +12,7 @@ function PanelReview({ deleteQuestion, item, index, selectId, isSelect }: {
     index: number,
     isSelect: boolean
 }) {
+    const router = useRouter()
     const handleDelete = (id: string) => {
         deleteQuestion(id)
     }
@@ -22,10 +24,12 @@ function PanelReview({ deleteQuestion, item, index, selectId, isSelect }: {
                 <Box color={"rgb(51, 51, 51)"} fontSize="0.75rem" fontWeight={"700"} textAlign="left" ml={"2rem"} >
                     Quiz {index + 1}
                 </Box>
-                <Box display={"flex"} flexDirection="row" h={"calc(100% - 2rem)"}>
-                    <Box onClick={() => handleDelete(item.id)} display={"flex"} flexDirection="column" justifyContent={"flex-end"} pr="0.125rem" ml={"0.5rem"} pb="0.5rem" cursor={"pointer"}>
-                        <DeleteIcon color={"rgb(110, 110, 110)"} />
-                    </Box>
+                <Box display={"flex"} flexDirection="row" h={"calc(100% - 2rem)"} justifyContent="center">
+                    {!router.query.doTest && (
+                        <Box onClick={() => handleDelete(item.id)} display={"flex"} flexDirection="column" justifyContent={"flex-end"} pr="0.125rem" ml={"0.5rem"} pb="0.5rem" cursor={"pointer"}>
+                            <DeleteIcon color={"rgb(110, 110, 110)"} />
+                        </Box>
+                    )}
                     <Box border={isSelect ? "1px solid #0958d9" : "none"} cursor={"grab"} h="93px" w={"calc(100% - 26px)"}
                         bg={isSelect ? "rgb(255, 255, 255)" : "#f5f5f5"} borderRadius={"0.25rem"}
                         zIndex="1" boxShadow={"transparent 0px 0px 0px 3px"} maxW="calc(100% - 26px)" ml={"0"} p="0.25rem 0.5rem"

@@ -1,7 +1,8 @@
 import { useHandleAnwser } from "@/context/TextContext";
 import { CheckIcon } from "@chakra-ui/icons";
 import { Box, Button, Input } from "@chakra-ui/react";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { BsFillSquareFill, BsTriangleFill } from "react-icons/bs";
 import { FaCircle } from "react-icons/fa";
 import { MdPentagon } from "react-icons/md";
@@ -30,7 +31,15 @@ function Answer() {
         setCorrectD
     } = useHandleAnwser()
 
-
+    const [disable, setDisable] = useState(false)
+    const router = useRouter()
+    useEffect(() => {
+        if (router.query.doTest) {
+            setDisable(true)
+        } else {
+            setDisable(false)
+        }
+    }, [router.query])
 
     return (
         <Box w={"100%"} h="100%" display={"flex"} flex="4 1 0%" flexWrap={"wrap"} >
@@ -49,7 +58,8 @@ function Answer() {
                 <Box minH={"7rem"} display="flex" w={"100%"} h="100%" maxW={"calc(100% - 3rem)"} alignItems="center">
                     <Box w="100%" color={"#fff"}>
                         <Input placeholder='Đáp án 1' value={answerA ?? ""}
-                            onChange={(e) => setAnswerA(e.target.value)} focusBorderColor={'transparent'} />
+                            onChange={(e) => setAnswerA(e.target.value)} focusBorderColor={'transparent'}
+                            isDisabled={disable} />
                     </Box>
                     <Box bg={correctA ? "#52c41a" : "transparent"} m="0 0.5rem" w={"2.875rem"} h="2.875rem" border={"0.25rem solid rgb(255, 255, 255)"}
                         boxShadow="transparent 0px 0px 0px 0.125rem, rgba(0, 0, 0, 0.35) 0px 0.125rem 0.125rem, rgba(0, 0, 0, 0.35) 0px 0px 0px 0.0625rem"
@@ -76,7 +86,8 @@ function Answer() {
                 <Box minH={"7rem"} display="flex" w={"100%"} h="100%" maxW={"calc(100% - 3rem)"} alignItems="center">
                     <Box w="100%" color={"#fff"}>
                         <Input placeholder='Đáp án 2' value={answerB ?? ""}
-                            onChange={(e) => setAnswerB(e.target.value)} focusBorderColor={'transparent'} />
+                            onChange={(e) => setAnswerB(e.target.value)} focusBorderColor={'transparent'}
+                            isDisabled={disable} />
                     </Box>
                     <Box bg={correctB ? "#52c41a" : "transparent"} m="0 0.5rem" w={"2.875rem"} h="2.875rem" border={"0.25rem solid rgb(255, 255, 255)"}
                         boxShadow="transparent 0px 0px 0px 0.125rem, rgba(0, 0, 0, 0.35) 0px 0.125rem 0.125rem, rgba(0, 0, 0, 0.35) 0px 0px 0px 0.0625rem"
@@ -104,7 +115,8 @@ function Answer() {
                 <Box minH={"7rem"} display="flex" w={"100%"} h="100%" maxW={"calc(100% - 3rem)"} alignItems="center">
                     <Box w="100%" color={"#fff"}>
                         <Input placeholder='Đáp án 3' value={answerC ?? ""}
-                            onChange={(e) => setAnswerC(e.target.value)} focusBorderColor={'transparent'} />
+                            onChange={(e) => setAnswerC(e.target.value)} focusBorderColor={'transparent'}
+                            isDisabled={disable} />
                     </Box>
                     <Box bg={correctC ? "#52c41a" : "transparent"} m="0 0.5rem" w={"2.875rem"} h="2.875rem" border={"0.25rem solid rgb(255, 255, 255)"}
                         boxShadow="transparent 0px 0px 0px 0.125rem, rgba(0, 0, 0, 0.35) 0px 0.125rem 0.125rem, rgba(0, 0, 0, 0.35) 0px 0px 0px 0.0625rem"
@@ -132,7 +144,8 @@ function Answer() {
                 <Box minH={"7rem"} display="flex" w={"100%"} h="100%" maxW={"calc(100% - 3rem)"} alignItems="center">
                     <Box w="100%" color={"#fff"}>
                         <Input placeholder='Đáp án 4' value={answerD ?? ""}
-                            onChange={(e) => setAnswerD(e.target.value)} focusBorderColor={'transparent'} />
+                            onChange={(e) => setAnswerD(e.target.value)} focusBorderColor={'transparent'}
+                            isDisabled={disable} />
                     </Box>
                     <Box bg={correctD ? "#52c41a" : "transparent"} m="0 0.5rem" w={"2.875rem"} h="2.875rem" border={"0.25rem solid rgb(255, 255, 255)"}
                         boxShadow="transparent 0px 0px 0px 0.125rem, rgba(0, 0, 0, 0.35) 0px 0.125rem 0.125rem, rgba(0, 0, 0, 0.35) 0px 0px 0px 0.0625rem"

@@ -1,3 +1,4 @@
+import { deleteTest } from '@/common/service/textService';
 import {
     Popover,
     PopoverTrigger,
@@ -8,12 +9,43 @@ import {
     Button,
     Stack,
     Flex,
+    useToast,
 } from '@chakra-ui/react';
+import { useState } from 'react';
 
 import { BsThreeDotsVertical, BsChatSquareQuote } from 'react-icons/bs';
 import { RiShutDownLine, RiRestartLine, RiFileShredLine } from 'react-icons/ri';
 
-export default function MoreOptionTest() {
+export default function MoreOptionTest({ idTest, refresh }: {
+    idTest: string
+    refresh: () => void
+}) {
+    const [isLoading, setIsLoading] = useState(false)
+    const toast = useToast();
+
+    const handleDeleteTest = async () => {
+        try {
+            setIsLoading(true)
+            const res = await deleteTest(idTest)
+            refresh && refresh()
+            toast({
+                title: "Bạn đã xoá bài test thành công!",
+                status: "success",
+                duration: 5000,
+                isClosable: true
+            });
+        } catch (error) {
+            toast({
+                title: "Đã có lỗi xảy ra!",
+                status: "error",
+                duration: 5000,
+                isClosable: true
+            });
+        } finally {
+            setIsLoading(false)
+        }
+
+    }
     return (
         /**
          * You may move the Popover outside Flex.
@@ -33,20 +65,22 @@ export default function MoreOptionTest() {
                     <PopoverArrow />
                     <PopoverBody>
                         <Stack>
-                            <Button
+                            {/* <Button
                                 w="194px"
                                 variant="ghost"
                                 justifyContent="space-between"
                                 fontWeight="normal"
                                 fontSize="sm">
                                 Chia sẻ
-                            </Button>
+                            </Button> */}
                             <Button
                                 w="194px"
                                 variant="ghost"
                                 justifyContent="space-between"
                                 fontWeight="normal"
-                                fontSize="sm">
+                                fontSize="sm"
+                                onClick={handleDeleteTest}
+                                isLoading={isLoading}>
                                 Xoá
                             </Button>
                             <Button

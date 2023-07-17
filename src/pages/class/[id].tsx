@@ -14,6 +14,7 @@ function NewsfeedPage() {
 
     const infoUser = async () => {
         const res: any = await getInfo()
+        localStorage.setItem("idUser", res._id)
         setInfo(res)
     }
     useEffect(() => {
