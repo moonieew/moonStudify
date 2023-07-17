@@ -16,7 +16,7 @@ function Member() {
     const [dataStudent, setDataStudent] = useState<any>()
     const [isRefresh, setIsRefresh] = useState(false)
 
-    const idUser = localStorage.getItem("idUser") || ""
+    const idUser = localStorage.getItem("idUser")
 
     const getInfoClass = async () => {
         setLoading(true)
