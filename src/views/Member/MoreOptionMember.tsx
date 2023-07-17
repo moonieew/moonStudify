@@ -1,3 +1,4 @@
+import { removeStudent } from '@/common/service/classService';
 import {
     Popover,
     PopoverTrigger,
@@ -8,17 +9,45 @@ import {
     Button,
     Stack,
     Flex,
+    useToast,
 } from '@chakra-ui/react';
+import { useState } from 'react';
 
 import { BsThreeDotsVertical, BsChatSquareQuote } from 'react-icons/bs';
 import { RiShutDownLine, RiRestartLine, RiFileShredLine } from 'react-icons/ri';
 
-export default function MoreOptionMember({ idClass, idStudent }: {
+export default function MoreOptionMember({ idClass, idStudent, refresh }: {
     idClass: string
     idStudent: string
+    refresh: () => void
 }) {
+    const [isLoading, setIsLoading] = useState(false)
+    const toast = useToast();
+
     const handleRemove = async () => {
-        // const res = await 
+        setIsLoading(true)
+        try {
+            await removeStudent({
+                classId: idClass,
+                studentId: idStudent
+            })
+            refresh && refresh()
+            toast({
+                title: "Bạn đã xoá học viên thành công!",
+                status: "success",
+                duration: 5000,
+                isClosable: true
+            });
+        } catch (error) {
+            toast({
+                title: "Đã có lỗi xảy ra!",
+                status: "error",
+                duration: 5000,
+                isClosable: true
+            });
+        } finally {
+            setIsLoading(false)
+        }
     }
     return (
         /**
@@ -54,6 +83,7 @@ export default function MoreOptionMember({ idClass, idStudent }: {
                                 fontWeight="normal"
                                 fontSize="sm"
                                 onClick={handleRemove}
+                                isLoading={isLoading}
                             >
                                 Xoá
                             </Button>

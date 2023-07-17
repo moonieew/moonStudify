@@ -85,10 +85,24 @@ interface removeStudentField {
   classId: string
 }
 
-// export const removeStudent = (params: removeStudentField): Promise<any> => {
-//   return axios.delete('https://be-moon-studify.vercel.app/api/class/remove-student', {
-//     ...params
-//   })
-// }
+export const removeStudent = (params: removeStudentField):Promise<any> => {
+  return axios({
+    method: 'post',
+    url: 'https://be-moon-studify.vercel.app/api/class/remove-student',
+    headers: {
+      'X-HTTP-Method-Override': 'DELETE',
+      'Content-Type': 'application/json',
+    },
+    data: {
+      ...params
+    },
+  })
+    .then(response => {
+      return response;
+    })
+    .catch(error => {
+      // Xử lý lỗi
+    });
+}
 
 

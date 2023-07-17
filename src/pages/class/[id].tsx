@@ -6,17 +6,25 @@ import Exam from "@/views/Exam";
 import Member from "@/views/Member";
 import Newsfeed from "@/views/Newsfeed";
 import { Box, Button, Container, Flex, HStack, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 function NewsfeedPage() {
     const [step, setStep] = useState<number>(1)
     const [info, setInfo] = useState<any>();
+    const router = useRouter()
 
     const infoUser = async () => {
         const res: any = await getInfo()
         localStorage.setItem("idUser", res._id)
         setInfo(res)
     }
+
+    useEffect(() => {
+        if (router.query.id) {
+            localStorage.setItem("idClass", router.query.id as string)
+        }
+    }, [router.query])
     useEffect(() => {
         infoUser();
     }, [])

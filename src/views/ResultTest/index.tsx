@@ -63,6 +63,13 @@ function ResultTest() {
         return result
     }
 
+    const backClass = () => {
+        const idClass = localStorage.getItem("idClass")
+        router.push({
+            pathname: `/class/${idClass}`,
+        })
+    }
+
     return (
         <>
             <Box
@@ -80,7 +87,7 @@ function ResultTest() {
                         {info && <Slidebar />}
                         <Logo />
                     </HStack>
-                    <Button bg={"none"} _hover={{ bg: "#bae0ff" }}>Trở về lớp học</Button>
+                    <Button bg={"none"} _hover={{ bg: "#bae0ff" }} onClick={backClass}>Trở về lớp học</Button>
                     <HStack>
                         <Profile info={info} setInfoUser={() => setInfo(null)} />
                     </HStack>

@@ -14,18 +14,31 @@ function Member() {
     const [infoTeacher, setInforTeacher] = useState<any>()
     const [loading, setLoading] = useState(false)
     const [dataStudent, setDataStudent] = useState<any>()
+    const [isRefresh, setIsRefresh] = useState(false)
+
+    const idUser = localStorage.getItem("idUser") || ""
 
     const getInfoClass = async () => {
         setLoading(true)
         const dataClass = await getClassById(router.query.id as string)
         setData(dataClass)
-        const res = await getUserById(data?.teacher)
-        setInforTeacher(res)
-        getInfoStudent(dataClass.students).then((res) => {
-            setDataStudent(res)
-        })
+
         setLoading(false)
     }
+
+    const getapiStudent = async () => {
+        if (data) {
+            const res = await getUserById(data?.teacher)
+            setInforTeacher(res)
+            const arrStudent = await getInfoStudent(data?.students)
+            setDataStudent(arrStudent)
+        }
+    }
+
+    useEffect(() => {
+        getapiStudent()
+    }, [router.query.id, isRefresh, data])
+
     const getInfoStudent = async (Arr: any) => {
         const createArr: any[] = [];
         for (let i = 0; i < Arr?.length; i++) {
@@ -37,7 +50,11 @@ function Member() {
 
     useEffect(() => {
         getInfoClass()
-    }, [router.query.id])
+    }, [router.query.id, isRefresh])
+
+    const onRefresh = () => {
+        setIsRefresh(pre => !pre)
+    }
 
     return (
         <>
@@ -95,7 +112,9 @@ function Member() {
                                     </Text>
                                 </Box>
                             </Checkbox>
-                            <MoreOptionMember idClass={data._id} idStudent={item._id} />
+                            {idUser == data.teacher && (
+                                <MoreOptionMember idClass={data._id} idStudent={item._id} refresh={onRefresh} />
+                            )}
                         </Box>
                     ))}
 
