@@ -3,12 +3,13 @@ import { createQuestion, updateQuestion } from "@/common/service/questions";
 import { submitTest, takeTest } from "@/common/service/taketest";
 import { getAllTest } from "@/common/service/textService";
 import { QuestionItem, TestContext, TestContextProvider, useSettingsQuestion } from "@/context/TextContext";
-import { Box, Button, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Center, Text, useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import TitleExam from "./ModalTitleExam";
 import PanelQuestions from "./PanelQuestions";
 import Question from "./Question";
+import Loading from "@/components/Loading";
 
 function CreateExamPage() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -19,12 +20,14 @@ function CreateExamPage() {
     const [isLoading, setIsLoading] = useState(false)
     const [idTest, setIdTest] = useState<string>("")
     const [takeTestId, setTakeTestId] = useState<string>("")
+    const [loading, setLoading] = useState(false)
 
     const formatDate = (originalDate: string) => {
         const originalDateTime = new Date(originalDate);
         return originalDateTime.toISOString().slice(0, 10) + "T16:34"
     }
     const TestAll = async () => {
+        setLoading(true)
         const res = await getAllTest()
         const test = res.find((item: any) => item.id === router.query.id)
         setNameTest(test?.name ?? "")
@@ -52,8 +55,10 @@ function CreateExamPage() {
             } as QuestionItem
         })
         setQuizFn(quizData)
+        setLoading(false)
     }
     const doTestById = async () => {
+        setLoading(true)
         const res = await takeTest(router.query.id as string)
         setTakeTestId(res.takeTestId)
         setNameTest(res.test.name)
@@ -78,6 +83,7 @@ function CreateExamPage() {
             } as QuestionItem
         })
         setQuizFn(quizData)
+        setLoading(false)
     }
     useEffect(() => {
         if (router.query.edit) {
@@ -218,6 +224,11 @@ function CreateExamPage() {
     return (
 
         <>
+            {loading && (
+                <Center>
+                    <Loading />
+                </Center>
+            )}
             <Box h={"3.5rem"} zIndex={"10"}
                 boxShadow={"rgba(0, 0, 0, 0.1) 0px 2px 4px 0px"}
                 p={"0.5rem 1rem"}
