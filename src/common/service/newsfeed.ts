@@ -21,3 +21,23 @@ export const createPost = (params : createPostField) : Promise<any> => {
     ...params
   })
 }
+
+export const deletePost = (nwId: string): Promise<any> => {
+  return axiosClient.delete(`/new-feed/?newFeedId=${nwId}`)
+  .then((response: AxiosResponse) => {
+    return response;
+  })
+  .catch((error: AxiosError) => {
+    return;
+  });
+}
+
+export const deleteNWByTeacher = (nfId: string) : Promise<any> => {
+  return axiosClient.delete(`/new-feed/remove-newfeed-by-teacher?newFeedId=${nfId}`)
+  .then((response: AxiosResponse) => {
+    return response;
+  })
+  .catch((error: AxiosError) => {
+    return;
+  });
+}

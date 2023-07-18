@@ -66,7 +66,7 @@ function Comment({ idComment }: {
                     <AccordionPanel pb={4}>
                         <Box p={"0 1.5rem"}>
                             {comment && comment.map((item: any, index: number) => (
-                                <Box mb={"1rem"} display={"flex"} justifyContent={"space-between"} key={item._id}>
+                                <Box mb={"1rem"} display={"flex"} justifyContent={"space-between"} key={item?._id}>
                                     <Box display={"flex"}>
                                         <Box h={"2rem"}
                                             m={"0.4rem 1rem 0 0"}

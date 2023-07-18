@@ -33,14 +33,14 @@ export default function MoreOptionFeedButton() {
                     <PopoverArrow />
                     <PopoverBody>
                         <Stack>
-                            <Button
+                            {/* <Button
                                 w="194px"
                                 variant="ghost"
                                 justifyContent="space-between"
                                 fontWeight="normal"
                                 fontSize="sm">
                                 Chỉnh sửa
-                            </Button>
+                            </Button> */}
                             <Button
                                 w="194px"
                                 variant="ghost"
@@ -57,14 +57,14 @@ export default function MoreOptionFeedButton() {
                                 fontSize="sm">
                                 Sao chép đường liên kết
                             </Button>
-                            <Button
+                            {/* <Button
                                 w="194px"
                                 variant="ghost"
                                 justifyContent="space-between"
                                 fontWeight="normal"
                                 fontSize="sm">
                                 Chuyển lên đầu
-                            </Button>
+                            </Button> */}
                         </Stack>
                     </PopoverBody>
                 </PopoverContent>

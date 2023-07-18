@@ -56,12 +56,23 @@ function Newsfeed() {
     const toast = useToast();
     const [loading, setLoading] = useState(false)
     const [isRefresh, setIsRefresh] = useState(false)
+    const [idClass, setIdClass] = useState<string>("")
 
-    const idClass = router.query.id as string
+    useEffect(() => {
+        if (router.query.id) {
+            setIdClass(router.query.id as string)
+        }
+    }, [router.query])
+
+    const nameUser = localStorage.getItem("nameUser") || "";
+
     const getInfoClass = async () => {
         setLoading(true)
-        const dataClass = await getClassById(idClass)
-        setData(dataClass)
+        if (idClass) {
+            const dataClass = await getClassById(idClass)
+            setData(dataClass)
+            localStorage.setItem("idTeacher", dataClass.teacher)
+        }
         setLoading(false)
     }
 
@@ -163,7 +174,7 @@ function Newsfeed() {
                                     w={"2.5rem"}
                                     alignSelf={"center"}
                                     m={"0 1rem"}>
-                                    <Avatar w={"100%"} h="100%" src='https://bit.ly/broken-link' />
+                                    <Avatar w={"100%"} h="100%" name={nameUser} src='https://bit.ly/broken-link' />
                                 </Box>
                                 <Text fontSize={"13px"} color="rgba(0,0,0,.549) " _hover={{ color: "rgb(25,103,210)" }}>Thông báo nội dung nào đó cho lớp học của bạn</Text>
                             </Box>
