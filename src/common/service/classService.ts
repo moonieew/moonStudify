@@ -88,7 +88,7 @@ interface removeStudentField {
 export const removeStudent = (params: removeStudentField):Promise<any> => {
   return axios({
     method: 'post',
-    url: 'https://be-moon-studify.vercel.app/api/class/remove-student',
+    url: 'https://be-moon-studify.vercel.app/class/remove-student',
     headers: {
       'X-HTTP-Method-Override': 'DELETE',
       'Content-Type': 'application/json',

@@ -6,6 +6,7 @@ import Slidebar from "@/components/Layout/Header/Slidebar";
 import { Box, Button, Center, Container, Flex, HStack, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { getCookie } from "typescript-cookie";
 
 function ResultTest() {
     const [info, setInfo] = useState<any>();
@@ -64,7 +65,7 @@ function ResultTest() {
     }
 
     const backClass = () => {
-        const idClass = localStorage.getItem("idClass")
+        const idClass = getCookie("idClass")
         router.push({
             pathname: `/class/${idClass}`,
         })

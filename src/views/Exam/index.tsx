@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getClassById } from "@/common/service/classService";
 import { getTestByClassId } from "@/common/service/textService";
+import { getCookie } from "typescript-cookie";
 
 function Exam() {
     const router = useRouter();
@@ -29,7 +30,7 @@ function Exam() {
     useEffect(() => {
         getInfoClass()
         getTest()
-        setIdUser(localStorage.getItem("idUser") || "")
+        setIdUser(getCookie("idUser") || "")
     }, [router.query.id, isRefresh])
 
     const goToCreateExam = () => {

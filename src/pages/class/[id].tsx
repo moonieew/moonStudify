@@ -8,6 +8,7 @@ import Newsfeed from "@/views/Newsfeed";
 import { Box, Button, Container, Flex, HStack, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { setCookie } from "typescript-cookie";
 
 function NewsfeedPage() {
     const [step, setStep] = useState<number>(1)
@@ -16,14 +17,14 @@ function NewsfeedPage() {
 
     const infoUser = async () => {
         const res: any = await getInfo()
-        localStorage.setItem("idUser", res._id)
+        setCookie("idUser", res._id)
         setInfo(res)
-        localStorage.setItem("nameUser", res.fullname)
+        setCookie("nameUser", res.fullname)
     }
 
     useEffect(() => {
         if (router.query.id) {
-            localStorage.setItem("idClass", router.query.id as string)
+            setCookie("idClass", router.query.id as string)
         }
     }, [router.query])
     useEffect(() => {

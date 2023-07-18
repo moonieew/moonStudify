@@ -3,6 +3,7 @@ import { takeTest } from "@/common/service/taketest";
 import { EditIcon } from "@chakra-ui/icons";
 import { Box, IconButton, Img, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { getCookie } from "typescript-cookie";
 import MoreOptionTest from "./MoreOptionTest";
 
 function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint, idTest, idTeacher, refresh }: {
@@ -16,7 +17,7 @@ function OneTest({ timeStart, timeEnd, nameTest, numberQuestion, maxPoint, idTes
     refresh: () => void
 }) {
     const router = useRouter();
-    const idUser = localStorage.getItem("idUser") || "";
+    const idUser = getCookie("idUser") || "";
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);

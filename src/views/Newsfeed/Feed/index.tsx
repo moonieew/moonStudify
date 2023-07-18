@@ -10,6 +10,7 @@ import { deleteNWByTeacher, deletePost, getNewsfeedById } from "@/common/service
 import Comment from "./Comment";
 import { getUserById } from "@/common/service/user";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { getCookie } from "typescript-cookie";
 
 const getInfoNew = async (idArr: any) => {
     const newsfeedArr: any[] = [];
@@ -66,9 +67,9 @@ function Feed({ idNewsfeed }: {
     const onRefresh = () => {
         setIsRefresh(pre => !pre)
     }
-    const nameUser = localStorage.getItem("nameUser") || "";
-    const userId = localStorage.getItem("idUser") || ""
-    const teacherId = localStorage.getItem("idTeacher") || ""
+    const nameUser = getCookie("nameUser") || "";
+    const userId = getCookie("idUser") || ""
+    const teacherId = getCookie("idTeacher") || ""
     const handleDeletePost = async (id: string) => {
         try {
             await deletePost(id)

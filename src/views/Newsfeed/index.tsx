@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { getClassById } from "@/common/service/classService";
 import dynamic from "next/dynamic";
 import { createPost } from "@/common/service/newsfeed";
+import { getCookie, setCookie } from "typescript-cookie";
 
 // const modules = {
 //     toolbar: [
@@ -64,14 +65,14 @@ function Newsfeed() {
         }
     }, [router.query])
 
-    const nameUser = localStorage.getItem("nameUser") || "";
+    const nameUser = getCookie("nameUser") || "";
 
     const getInfoClass = async () => {
         setLoading(true)
         if (idClass) {
             const dataClass = await getClassById(idClass)
             setData(dataClass)
-            localStorage.setItem("idTeacher", dataClass.teacher)
+            setCookie("idTeacher", dataClass.teacher)
         }
         setLoading(false)
     }

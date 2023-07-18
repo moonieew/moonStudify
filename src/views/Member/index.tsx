@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getClassById } from "@/common/service/classService";
 import { useRouter } from "next/router";
 import { getUserById } from "@/common/service/user";
+import { getCookie } from "typescript-cookie";
 
 function Member() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -16,7 +17,7 @@ function Member() {
     const [dataStudent, setDataStudent] = useState<any>()
     const [isRefresh, setIsRefresh] = useState(false)
 
-    // const idUser = localStorage.getItem("idUser")
+    const idUser = getCookie("idUser")
 
     const getInfoClass = async () => {
         setLoading(true)
@@ -112,9 +113,9 @@ function Member() {
                                     </Text>
                                 </Box>
                             </Checkbox>
-                            {/* {idUser == data.teacher && ( */}
-                            <MoreOptionMember idClass={data._id} idStudent={item._id} refresh={onRefresh} />
-                            {/* )} */}
+                            {idUser == data.teacher && (
+                                <MoreOptionMember idClass={data._id} idStudent={item._id} refresh={onRefresh} />
+                            )}
                         </Box>
                     ))}
 
